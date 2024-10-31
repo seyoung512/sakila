@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j // 이 클래스에서 log라는 변수를 사용 가능
+@Slf4j
 @Controller
-public class Hello {
-   @GetMapping("/hello")
-   public String hello() {
-      log.debug("ㅎㅎ"); 
-      return "hello";
-   }
+public class MainController {
+	@GetMapping("/on/main")
+	public String main() {
+		return "on/main";
+	}
 }

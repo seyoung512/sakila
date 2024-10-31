@@ -14,7 +14,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-	hello
+<body class="container">
+	<h1>staff login <span>${msg}</span></h1>
+	
+	<form action="${pageContext.request.contextPath}/off/login" method="post">
+  		<div class="mb-3 mt-3">
+    		<label for="staffId" class="form-label">staffId:</label>
+    		<input type="text" class="form-control" id="staffId" name="staffId">
+  		</div>
+  		<div class="mb-3">
+    		<label for="password" class="form-label">password:</label>
+    		<input type="password" class="form-control" id="password" name="password">
+  		</div>
+  		<button type="submit" class="btn btn-primary">로그인</button>
+	</form>
 </body>
 </html>
