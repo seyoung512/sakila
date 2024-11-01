@@ -15,7 +15,16 @@
 <title>Insert title here</title>
 </head>
 <body class="container">
-	<h1>main</h1>
-	<div>${loginStaff.username}님 반갑습니다.</div>
+	<div class="row">
+		<div class="col-sm-2 bg-light">
+			<!-- leftMenu.jsp include -->
+			<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
+		</div>
+		
+		<div class="col-sm-10">
+			<!-- main content -->
+			<h1>staffOne</h1>
+		</div>	
+	</div>
 </body>
 </html>

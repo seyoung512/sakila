@@ -16,8 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class LoginController {
+	
 	@Autowired
 	private staffMapper staffMapper;
+	
+	@GetMapping("/on/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		log.debug("로그아웃 성공");
+		return "redirect:/off/login";
+	}
 	
 	@GetMapping("/off/login")
 	public String login() {
