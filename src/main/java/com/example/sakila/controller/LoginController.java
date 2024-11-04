@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.sakila.mapper.staffMapper;
+import com.example.sakila.mapper.StaffMapper;
 import com.example.sakila.vo.Staff;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 	
 	@Autowired
-	private staffMapper staffMapper;
+	private StaffMapper staffMapper;
 	
 	@GetMapping("/on/logout")
 	public String logout(HttpSession session) {

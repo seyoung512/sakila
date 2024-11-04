@@ -47,6 +47,23 @@
 			    color: #000; /* 강조된 텍스트 색상 */
 			    font-weight: bold; /* 텍스트 굵게 */
 			}
+			.table {
+    		border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 외곽선 */
+			}
+			.table th, .table td {
+    		border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 셀 경계 */
+			}
+			 .btn-custom {
+	        background-color: #d3d3d3; /* 연한 그레이 색상 */
+	        color: #000; /* 텍스트 색상 */
+	        font-size: 0.85rem; /* 글자 크기 줄이기 */
+	        padding: 8px 12px; /* 패딩 조정 */
+	        border: none; /* 테두리 제거 */
+	        border-radius: 4px; /* 모서리 둥글게 */
+	  	    }
+	   	    .btn-custom:hover {
+	        background-color: #b0b0b0; /* 호버 시 더 어두운 그레이색 */
+    }
 	</style>
 </head>
 <body>
@@ -58,9 +75,44 @@
 	   		   </div>
 	   			
 	    <div class="col-sm-10">
-	        <h2 class="text-center mb-4">홈</h2> <!-- 제목 추가 -->
-	  </div>
-    </div>
-  </div>
+	        <!-- main content -->
+	       	<h1 class = "text-center">스탭 목록</h1>
+	       	<br>
+	       	<table class="table table-striped">
+	       		<tr>
+	       			<td>staffId</td>
+	       			<td>firstName</td>
+	       			<td>lastName</td>
+	       			<td>addressId</td>
+	       			<td>email</td>
+	       			<td>storeId</td>
+	       			<td>username</td>
+	       			<td>lastUpdate</td>
+	       			<td>active</td>
+	       			<td>활성/비활성화</td> 			
+	       		</tr>
+	       		<c:forEach var = "s" items="${staffList}">
+	       			<tr>
+	       				<td>${s.staffId}</td>
+	       				<td>${s.firstName}</td>
+	       				<td>${s.lastName}</td>
+	       				<td>${s.addressId}</td>
+	       				<td>${s.email}</td>
+	       				<td>${s.storeId}</td>
+	       				<td>${s.username}</td>
+	       				<td>${s.lastUpdate}</td>
+	       				<td>${s.active}</td>
+	       				<td>
+	       					<a href="${pageContext.request.contextPath}/on/modifyStaffActive?staffId=${s.staffId}&active=${s.active}" class="btn btn-custom">
+	       						<c:if test="${s.active==1}">사용금지로(2로) 변경</c:if>
+	       						<c:if test="${s.active==2}">사용가능으로(1로) 변경</c:if>			       						
+	       					</a>
+	       				</td>
+	       			</tr>
+	       		</c:forEach>
+	       	</table>
+		    </div>
+		</div>
+	</div>
 </body>
 </html>

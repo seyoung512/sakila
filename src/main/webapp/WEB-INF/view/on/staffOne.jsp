@@ -58,26 +58,25 @@
 	   		   </div>
 	   		   <div class="col-sm-10">
                 	<h2 class="text-center mb-4">Personal Information</h2>
-                	
                  <!-- 프로필 사진 추가 -->
                 <img src="${staff.profilePicUrl}" alt="Profile Picture" class="profile-pic">
 	   		
 		        <table class="table table-bordered">
 		            <tbody>
 		                <tr>
-		                    <td class="bold-center">staffId</td>
+		                    <td class="bold-center">아이디</td>
 		                    <td>${staff.staffId}</td>
 		                </tr>
 		                <tr>
-		                    <td class="bold-center">firstName</td>
+		                    <td class="bold-center">이름</td>
 		                    <td>${staff.firstName}</td>
 		                </tr>
 		                <tr>
-		                    <td class="bold-center">staffAddress</td>
+		                    <td class="bold-center">주소</td>
 		                    <td>${staff.staffAddress}</td>
 		                </tr>
 		                <tr>
-		                    <td class="bold-center">staffAddress2</td>
+		                    <td class="bold-center">주소2</td>
 		                    <td>${staff.staffAddress2}</td>
 		                </tr>
 		                <tr>

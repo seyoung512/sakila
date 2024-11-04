@@ -7,7 +7,7 @@
 	  		<a href="${pageContext.request.contextPath}/on/staffOne" class="active">정보 확인</a></li>
 	  <li class="list-group-item">
 	  		<a href="${pageContext.request.contextPath}/on/logout">로그아웃</a></li> 
-	  
+	
 	  <li class="list-group-item">
 	  		::: 지점 관리 :::</li>		
 	  <li class="list-group-item">
@@ -18,9 +18,9 @@
 	  <li class="list-group-item">
 	  		::: STAFF 관리 :::</li>		
 	  <li class="list-group-item">
-	  		<a href="">스텝 리스트</a></li>		
+	  		<a href="${pageContext.request.contextPath}/on/staffList">스텝 리스트</a></li>		
 	  <li class="list-group-item">
-	  		<a href="">스텝 추가</a></li>		
+	  		<a href="${pageContext.request.contextPath}/on/addStaff">스텝 추가</a></li>		
 	 
 	  <li class="list-group-item">
 	  		::: 고객 관리 :::</li>		
