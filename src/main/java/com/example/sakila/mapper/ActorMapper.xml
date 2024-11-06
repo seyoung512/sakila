@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sakila.mapper.ActorMapper">
+	
+	<select id="selectActorOne" parameterType="int" resultType="com.example.sakila.vo.Actor">
+		SELECT
+			actor_id actorId
+			, first_name firstName
+			, last_name lastName
+			, last_Update lastUpdate
+		FROM actor
+		WHERE actor_id = #{actorId}
+	</select>
+	
+	<select id="selectActorList" parameterType="Map" resultType="com.example.sakila.vo.Actor">
+		SELECT
+			actor_id actorId
+			, first_name firstName
+			, last_name lastName
+		FROM actor
+		<where>
+			<if test="searchWord != null">
+				first_name LIKE CONCAT('%', #{searchWord}, '%') 
+				OR last_name LIKE CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		ORDER BY first_name ASC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	
+	<insert id="insertActor" parameterType="com.example.sakila.vo.Actor">
+		<selectKey resultType="int" keyProperty="actorId" order="AFTER">
+			     select LAST_INSERT_ID()
+		</selectKey> <!-- 인서트 실행 후 셀렉트 키 실행 -->
+		INSERT INTO actor(
+			first_name, last_name
+		) VALUES (
+			#{firstName}, #{lastName}
+		)		
+	</insert>
+</mapper>

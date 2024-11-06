@@ -58,7 +58,7 @@
 	   		   </div>
 	   			
 	    <div class="col-sm-10">
-	        <h2 class="text-center mb-4">홈</h2> <!-- 제목 추가 -->
+	        <h2 class="text-center mb-4">Home</h2> <!-- 제목 추가 -->
 	  </div>
     </div>
   </div>

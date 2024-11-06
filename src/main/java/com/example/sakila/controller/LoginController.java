@@ -30,9 +30,7 @@ public class LoginController {
 	
 	@GetMapping("/off/login")
 	public String login() {
-		
 		log.debug("/off/login 실행됨.");
-		
 		return "off/login";
 	}
 	

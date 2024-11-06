@@ -22,10 +22,11 @@
 	            margin: auto; /* 테이블 가운데 정렬 */
 	            width: 80%; /* 테이블 너비 */
 	            border-collapse: collapse; /* 테이블 경계 겹치기 */
+	            text-align: center; /* 모든 셀 내용 가운데 정렬 */
 	        }
 	        th, td {
 	            padding: 12px; /* 셀 여백 */
-	            text-align: left; /* 텍스트 기본 왼쪽 정렬 */
+	            text-align: center; /* 텍스트 가운데 정렬 */
 	        }
 	        .bold-center {
 	            text-align: center; /* 가운데 정렬 */
@@ -48,12 +49,12 @@
 			    font-weight: bold; /* 텍스트 굵게 */
 			}
 			.table {
-    		border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 외곽선 */
+    			border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 외곽선 */
 			}
 			.table th, .table td {
-    		border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 셀 경계 */
+    			border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 셀 경계 */
 			}
-			 .btn-custom {
+		    .btn-custom {
 	        background-color: #d3d3d3; /* 연한 그레이 색상 */
 	        color: #000; /* 텍스트 색상 */
 	        font-size: 0.85rem; /* 글자 크기 줄이기 */
@@ -74,7 +75,7 @@
 	        		<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
 	   		   </div>
 	   			
-	    <div class="col-sm-10">
+	    <div class="col-sm-8">
 	        <!-- main content -->
 	       	<h1 class = "text-center">스탭 목록</h1>
 	       	<br>
@@ -111,8 +112,39 @@
 	       			</tr>
 	       		</c:forEach>
 	       	</table>
+		   
+		    <!-- 페이지네이션 -->
+			<div class="container text-center">
+			  <div class="row">
+			    <div class="col"></div>
+			    <div class="col">
+			      <nav aria-label="Page navigation example">
+					  <!-- 처음으로 -->
+					  <ul class="pagination">
+					    <li class="page-item">
+					    	<a class="page-link" href="${pageContext.request.contextPath}/on/staffList?currentPage=1" aria-label="Previous">
+					   			 <span aria-hidden="true">&laquo;</span>
+					   		</a>
+					    </li>
+					    <c:forEach var="i" begin="1" end="${lastPage}">
+				           <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/on/staffList?currentPage=${i}">${i}</a></li>
+				        </c:forEach>
+					    <!-- 마지막으로 -->
+					    <li class="page-item">
+					    	<a class="page-link" href="${pageContext.request.contextPath}/on/staffList?currentPage=${lastPage}" aria-label="Next">
+					    		 <span aria-hidden="true">&raquo;</span>
+					    	</a>
+					    </li>
+					  </ul>
+					</nav>
+			    </div>
+			    <div class="col"></div>
+			  </div>
+			</div>
 		    </div>
+		    
 		</div>
 	</div>
+
 </body>
 </html>

@@ -56,7 +56,7 @@
 	               <!-- leftMenu.jsp include -->
 	        		<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
 	   		   </div>
-	   		   <div class="col-sm-10">
+	   		   <div class="col-sm-5">
                 	<h2 class="text-center mb-4">Personal Information</h2>
                  <!-- 프로필 사진 추가 -->
                 <img src="${staff.profilePicUrl}" alt="Profile Picture" class="profile-pic">

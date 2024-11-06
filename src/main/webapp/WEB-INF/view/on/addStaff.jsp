@@ -41,7 +41,7 @@
                 <!-- leftMenu.jsp include -->
                 <c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
                 <h1 class="text-center">스탭 추가</h1>
                 
                 <form id="formAddress" action="${pageContext.request.contextPath}/on/addStaff" method="get">
