@@ -77,8 +77,8 @@
 	        <h2 class="text-center mb-4">배우 목록</h2> <!-- 제목 추가 -->
 	        <table class="table table-striped">
 	        	<tr>
-	        		<td class="">actorId</td>
-	        		<td>Name</td>
+	        		<td class="bold-center">번호</td>
+	        		<td class="bold-center" >이름</td>
 	        	</tr>
 	        	<c:forEach var="a" items="${actorList}">
 	        		<tr>

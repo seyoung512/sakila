@@ -6,9 +6,14 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.sakila.vo.Actor;
+import com.example.sakila.vo.Film;
 
 @Mapper
 public interface ActorMapper {
+	
+	// /on/filmOne
+	List<Actor> selectActorListByFilm(int filmId); 
+	
 	// /on/actorOne
 	Actor selectActorOne(int actorId);
 	

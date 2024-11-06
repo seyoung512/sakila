@@ -81,16 +81,16 @@
 	       	<br>
 	       	<table class="table table-striped">
 	       		<tr>
-	       			<td>staffId</td>
-	       			<td>firstName</td>
-	       			<td>lastName</td>
-	       			<td>addressId</td>
-	       			<td>email</td>
-	       			<td>storeId</td>
-	       			<td>username</td>
-	       			<td>lastUpdate</td>
-	       			<td>active</td>
-	       			<td>활성/비활성화</td> 			
+	       			<td class="bold-center">staffId</td>
+	       			<td class="bold-center">firstName</td>
+	       			<td class="bold-center">lastName</td>
+	       			<td class="bold-center">addressId</td>
+	       			<td class="bold-center">email</td>
+	       			<td class="bold-center">storeId</td>
+	       			<td class="bold-center">username</td>
+	       			<td class="bold-center">lastUpdate</td>
+	       			<td class="bold-center">active</td>
+	       			<td class="bold-center">활성/비활성화</td> 			
 	       		</tr>
 	       		<c:forEach var = "s" items="${staffList}">
 	       			<tr>

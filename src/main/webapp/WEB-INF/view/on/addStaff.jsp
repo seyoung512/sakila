@@ -21,6 +21,12 @@
     .input-group {
         margin-bottom: 15px; /* 입력 그룹 간격 */
     }
+    .table {
+   			border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 외곽선 */
+	}
+	.table th, .table td {
+  			border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 셀 경계 */
+	}
     .btn-custom {
         background-color: #d3d3d3; /* 연한 그레이 색상 */
         color: #000; /* 텍스트 색상 */

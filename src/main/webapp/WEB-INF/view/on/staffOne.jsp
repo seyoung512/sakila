@@ -47,6 +47,23 @@
 			    color: #000; /* 강조된 텍스트 색상 */
 			    font-weight: bold; /* 텍스트 굵게 */
 			}
+			.table {
+    			border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 외곽선 */
+			}
+			.table th, .table td {
+    			border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 셀 경계 */
+			}
+		    .btn-custom {
+	        background-color: #d3d3d3; /* 연한 그레이 색상 */
+	        color: #000; /* 텍스트 색상 */
+	        font-size: 0.85rem; /* 글자 크기 줄이기 */
+	        padding: 8px 12px; /* 패딩 조정 */
+	        border: none; /* 테두리 제거 */
+	        border-radius: 4px; /* 모서리 둥글게 */
+	  	    }
+	   	    .btn-custom:hover {
+	        background-color: #b0b0b0; /* 호버 시 더 어두운 그레이색 */
+	        }
 	</style>
 </head>
 <body>
@@ -61,7 +78,7 @@
                  <!-- 프로필 사진 추가 -->
                 <img src="${staff.profilePicUrl}" alt="Profile Picture" class="profile-pic">
 	   		
-		        <table class="table table-bordered">
+		        <table class="table table-striped">
 		            <tbody>
 		                <tr>
 		                    <td class="bold-center">아이디</td>
@@ -103,7 +120,7 @@
 		        </table>
 		        <br>
 		        <h2 class="text-center mb-4">Store Information</h2> <!-- 제목 추가 -->
-		        <table class="table table-bordered">
+		        <table class="table table-striped">
 		            <tbody>
 		                <tr>
 		                    <td class="bold-center">managerStaffId</td>
