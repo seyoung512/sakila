@@ -6,10 +6,13 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.sakila.vo.Actor;
-import com.example.sakila.vo.Film;
 
 @Mapper
 public interface ActorMapper {
+	
+	int updateModifyActor(int actorId);
+	
+	int totalCount(String seachWord);
 	
 	// /on/filmOne
 	List<Actor> selectActorListByFilm(int filmId); 

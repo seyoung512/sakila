@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sakila.mapper.ActorMapper">
 	
+	<update id="updateModifyActor" parameterType="com.example.sakila.vo.Actor">
+		UPDATE actor 
+		SET first_name = #{firstName}, last_name = #{lastName}
+		WHERE actor_id = #{actorId}
+	</update>
+	
+	<!--  -->
+	<select id="totalCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM actor
+		<where>
+			<if test="searchWord != null">
+				first_name LIKE CONCAT('%', #{searchWord}, '%')
+				OR last_name LIKE CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 특정 영화에 출연한 모든 배우들의 목록을 반환 -->
 	<select id="selectActorListByFilm" parameterType="int" resultType="com.example.sakila.vo.Actor">
 		SELECT
 			a.actor_id actorId
@@ -12,6 +31,7 @@
 		WHERE fa.film_id = #{filmId}
 	</select>
 		
+	<!-- 특정 배우의 상세 정보를 반환 -->
 	<select id="selectActorOne" parameterType="int" resultType="com.example.sakila.vo.Actor">
 		SELECT
 			actor_id actorId
@@ -22,6 +42,7 @@
 		WHERE actor_id = #{actorId}
 	</select>
 	
+	<!-- 배우이름 검색하면 검색한 배우이름으로 리스트 보여주기 -->
 	<select id="selectActorList" parameterType="Map" resultType="com.example.sakila.vo.Actor">
 		SELECT
 			actor_id actorId

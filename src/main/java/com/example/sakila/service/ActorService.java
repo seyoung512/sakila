@@ -23,9 +23,17 @@ public class ActorService {
 	@Autowired ActorMapper actorMapper;
 	@Autowired ActorFileMapper actorFileMapper;
 	
+	// 
 	// /on/filmOne
 	public List<Actor> getActorListByFilm(int filmId) {
 		return actorMapper.selectActorListByFilm(filmId);
+	}
+	
+	public int getLastPage(int rowPerPage, String searchWord) {
+		int count = actorMapper.totalCount(searchWord);
+		int lastPage = count / rowPerPage;
+		if (count % rowPerPage != 0) lastPage++;
+		return lastPage;
 	}
 	
 	// /on/actorOne

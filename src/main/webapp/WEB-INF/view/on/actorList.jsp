@@ -94,6 +94,30 @@
 	        	<input type="text" name="searchWord" id="searchWord">
 	        	<button id="btnSearch">이름검색</button>
 	        </form>
+	        
+	        <!-- 페이징 관련 -->
+				<div class="d-flex justify-content-between">
+					<div>
+						<c:if test="${currentPage > 1}">
+							<a href="${pageContext.request.contextPath}/on/actorList?currentPage=1&searchWord=${searchWord}">
+								<button type="button" class="btn btn-outline-secondary btn-sm">처음페이지</button>
+							</a>
+							<a href="${pageContext.request.contextPath}/on/actorList?currentPage=${currentPage - 1}&searchWord=${searchWord}">
+								<button type="button" class="btn btn-outline-secondary btn-sm">이전페이지</button>
+							</a>
+						</c:if>
+					</div>
+					<div>
+						<c:if test="${currentPage < lastPage}">
+							<a href="${pageContext.request.contextPath}/on/actorList?currentPage=${currentPage + 1}&searchWord=${searchWord}">
+								<button type="button" class="btn btn-outline-secondary btn-sm">다음페이지</button>
+							</a>
+							<a href="${pageContext.request.contextPath}/on/actorList?currentPage=${lastPage}&searchWord=${searchWord}">
+								<button type="button" class="btn btn-outline-secondary btn-sm">마지막페이지</button>
+							</a>
+						</c:if>
+					</div>
+				</div>
 	  </div>
     </div>
   </div>

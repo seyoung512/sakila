@@ -23,6 +23,17 @@
 	  		<a href="${pageContext.request.contextPath}/on/addStaff">스텝 추가</a></li>		
 	 
 	  <li class="list-group-item">
+	  		::: 영화 관리 :::</li>		
+	  <li class="list-group-item">
+	  		<a href="">영화 리스트</a></li>		
+	  <li class="list-group-item">
+	  		<a href="${pageContext.request.contextPath}/on/addFilm">영화 추가</a></li>		
+	 
+	  <li class="list-group-item">
+	  		::: 통계 :::
+	  </li>	
+	  
+	  <li class="list-group-item">
 	  		::: 고객 관리 :::</li>		
 	  <li class="list-group-item">
 	  		<a href="">고객 리스트</a></li>		

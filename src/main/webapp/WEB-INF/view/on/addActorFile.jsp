@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -46,23 +45,6 @@
 			    color: #000; /* 강조된 텍스트 색상 */
 			    font-weight: bold; /* 텍스트 굵게 */
 			}
-			.table {
-    			border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 외곽선 */
-			}
-			.table th, .table td {
-    			border: 1px solid rgba(0, 0, 0, 0.2); /* 연한 회색 셀 경계 */
-			}
-		    .btn-custom {
-	        background-color: #d3d3d3; /* 연한 그레이 색상 */
-	        color: #000; /* 텍스트 색상 */
-	        font-size: 0.85rem; /* 글자 크기 줄이기 */
-	        padding: 8px 12px; /* 패딩 조정 */
-	        border: none; /* 테두리 제거 */
-	        border-radius: 4px; /* 모서리 둥글게 */
-	  	    }
-	   	    .btn-custom:hover {
-	        background-color: #b0b0b0; /* 호버 시 더 어두운 그레이색 */
-	        }
 	</style>
 </head>
 <body>
@@ -73,48 +55,54 @@
 	        		<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
 	   		   </div>
 	   			
-	    <div class="col-sm-5">
-	    	<!-- main content -->
-	        <h2 class="text-center mb-4">배우 추가</h2> <!-- 제목 추가 -->
-	        <form id="formActor" method="post" action="${pageContext.request.contextPath}/on/addActor"
-	        	enctype="multipart/form-data">
-		        <table class = "table">
-		        	<tr>
-		        		<td class="bold-center" >성</td>
-		        		<td><input type="text" name="firstName"></td>
-		        	</tr>
-		        	<tr>
-		        		<td class="bold-center" >이름</td>
-		        		<td><input type="text" name="lastName"></td>
-		        	</tr>
-		        	<tr>
-		        		<td class="bold-center" >파일</td>
-		        		<td>
-		        			<div id="fileDiv">
+	    <div class="col-sm-10">
+	        <h2 class="text-center mb-4">배우 파일 추가</h2> <!-- 제목 추가 -->
+	       
+	       <div>${msg}</div>
+	       
+	        <form id="formAddActorfile" method="post"
+	        		enctype="multipart/form-data"
+	        		action="${pageContext.request.contextPath}/on/addActorFile">
+	        	
+	        	<table class="table">
+	        		<tr>
+	        			<!-- actorId는 변하면 안됨 -->
+	        			<td>actorId</td>
+	        			<td>
+	        				<input type="text" name="actorId" value="${actorId}" readonly>
+	        			</td>
+	        		</tr>
+	        		<tr>
+	        			<td>file</td>
+	        			<td>
+	        				<div id="fileDiv">
 		        				<button type="button" id="btnAddFile">파일추가</button>
 		        				<button type="button" id="btnRemoveFile">파일삭제</button>
+		        				<input type="file" name="actorFile" class="actorFile form-control">
 		        			</div>
-		        		</td>
-		        	</tr>
-		        </table>
-		        <button type="button" id="btnAddActor">배우 추가</button>
-	  		</form>
+	        			</td>
+	        		</tr>
+	        	</table>
+	        	<button id="btnaddActorFile" >파일추가</button>
+	        </form>
 	  </div>
     </div>
   </div>
 </body>
 <script>
-	$('#btnAddActor').click(function() {
-		if($('#firstName').val() == '' || $('#lastName').val() == '') {
-				alert('이름을 입력하세요');
-		} else if($('.actorFile').length > 0 && $('.actorFile').last().val() == '') {
-			alert('첨부되지 않은 파일이 있습니다');
+	// 제출 버튼 클릭시 주의문
+	$('#btnAddActorFile').click(function(){
+		if($('.actorFile').length > 0 && $('.actorFile').last().val() == '') {
+			alert('첨부할 파일이 없습니다');
+		} else if($('.actorFile').last().val() == '') {
+			alert('첨부되지 않은 파일이 없습니다');
 		} else {
-			$('#formActor').submit();
+			$('#formAddActorFile').submit();
 		}
 	});
 	
-	$('#btnAddFile').click(function() {		
+	// 파일 추가 버튼 클릭시 첨부 파일 없을 때 주의문, 있을 시 파일 생성
+	$('#btnAddFile').click(function() {
 		if($('.actorFile').last().val() == '') { // 마지막 input=file값이 공백이라면
 			alert("첨부하지 않은 파일이 이미 존재합니다");
 		} else {
@@ -123,6 +111,7 @@
 		}
 	});
 	
+	// 파일 삭제 버튼 클릭시 첨부 파일이 없을 때 주의문, 있을 시 마지막 파일부터 삭제 
 	$('#btnRemoveFile').click(function() {
 		// 마지막 <input type="file" name="actorFile" class="actorFile"> 태그를 제거
 		// console.log($('.actorFile').length);

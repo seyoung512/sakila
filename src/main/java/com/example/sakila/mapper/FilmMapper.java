@@ -9,9 +9,12 @@ import com.example.sakila.vo.Film;
 
 @Mapper
 public interface FilmMapper {
-	// film X language
-	Map<String, Object> selectFilmOne(int filmId); 
 	
+	int insertFilm(Film film);
+	
+	// film X language
+	Map<String, Object> selectFilmOne(int filmId);
+
 	// /on/actorOne
 	List<Film> selectFilmTitleListByActor(int actorId);
 }

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Language {
-	private int lauguageId; //pk
+	private int languageId; //pk
 	private String name;
 	private String lastUpdate;
 }
