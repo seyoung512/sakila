@@ -32,6 +32,7 @@ public class FilmController {
 		log.debug(filmForm.toString());
 		
 		// filmService : FilmForm -> Film
+		filmService.addFilm(filmForm);
 		
 		return "redirect:/on/filmList";
 	}

@@ -55,40 +55,53 @@
 	           <div class="col-sm-2">
 	               <!-- leftMenu.jsp include -->
 	        		<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
-	   		   </div>
+	   	   </div>
 	   			
 	    <div class="col-sm-10">
 	        <!-- 제목 추가 -->
 	        <h2 class="text-center mb-4">정보 수정</h2>
-	  		<form id="formModiActor" method="post" action="${pageContext.request.contextPath}/on/modifyActor">
-	  			<table>
+	  			<table class="table">
 	  				<tr>
-	  					<td class="bold-center" >배우번호</td>
-		        		<td><input type="text" name="actorId" value="${actorId}" readonly></td>
+	  					<td>fistName</td>
+	  					<td>
+	  						<form id="formFirstName" method="post" action="${pageContext.request.contextPath}/on/modifyActor">
+	  							<input type="hidden" name="actorId" value="${actor.actorId}">
+	  							<input type="text" value="${actor.firstName}" name="firstName" id="firstName">
+	  							<button type="button" id="btnFirstName">firstName 수정</button>
+	  						</form>
+	  					</td>
 	  				</tr>
 	  				<tr>
-	  					<td class="bold-center" >성</td>
-		        		<td><input type="text" name="firstName"></td>
-	  				</tr>
-	  				<tr>
-	  					<td class="bold-center" >이름</td>
-		        		<td><input type="text" name="lastName"></td>
+	  					<td>lastName</td>
+	  					<td>
+	  						<form id="formLastName" method="post" action="${pageContext.request.contextPath}/on/modifyActor">
+	  							<input type="hidden" name="actorId" value="${actor.actorId}">
+	  							<input type="text" value="${actor.lastName}" name="lastName" id="lastName">
+	  							<button type="button" id="btnLastName">lastName 수정</button>
+	  						</form>
+	  					</td>
 	  				</tr>
 	  			</table>
-	  			<button id="btnModifyActor" >입력</button>
-	  		</form>
+		  </div>
+	    </div>
 	  </div>
-    </div>
-  </div>
 </body>
 <script>
 //제출 버튼 클릭시 주의문
-$('#btnAddActorFile').click(function(){
-	if($('firstName').val() == '' || $('lastName').val() == '') {
-		alert('이름을 입력하세요');
-	} else {
-		$('#formModiActor').submit();
-	}
-});
+	$('#btnFirstName').click(function(){
+		if($('#firstName').val() == '') {
+			alert('fistName을 입력하세요');
+		} else {
+			$('#formFirstName').submit();
+		}
+	});
+
+	$('#btnLastName').click(function(){
+		if($('#lastName').val() == '') {
+			alert('lastName을 입력하세요');
+		} else {
+			$('#formLastName').submit();
+		}
+	});
 </script>
 </html>

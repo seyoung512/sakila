@@ -10,7 +10,10 @@ import com.example.sakila.vo.Actor;
 @Mapper
 public interface ActorMapper {
 	
-	int updateModifyActor(int actorId);
+	int deleteActor(int actorId);
+	
+	// /on
+	int updateActor(Actor actor);
 	
 	int totalCount(String seachWord);
 	

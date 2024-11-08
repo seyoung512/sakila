@@ -189,8 +189,12 @@
 	        </table>
 	        
 	        <div>
-	        	<a href="${pageContext.request.contextPath}/on/modifyActor">
-	        		정보 수정 [과제 : 입렵폼, 액션, 서비스, 맵퍼]
+	        	<a href="${pageContext.request.contextPath}/on/modifyActor?actorId=${actor.actorId}">
+	        		배우 수정
+	        	</a>
+	        	&nbsp;
+	        	<a href="${pageContext.request.contextPath}/on/removeActor?actorId=${actor.actorId}">
+	        		배우 삭제
 	        	</a>
 	        </div>
 	        
@@ -246,14 +250,15 @@
 		        	</form>
 		        	
 		        	<form id="formAddFilm" method="post" action="${pageContext.request.contextPath}/on/addFilmByActor">	
-		        		<select size="5" name="filmId" value="${actor.actorId}"> 
+		        		<input type="hidden" name="actorId" value="${actor.actorId}">
+		        		<select size="5" name="filmId"> 
 		        		<!-- 수정해야됨 -->
 		        			<c:forEach var="sf" items="${searchFilmList}">
 		        				<option value="${sf.filmId}">${sf.title}</option>
 		        			</c:forEach>
 		        		</select>
 		        	</form>
-	        		<button id="btnSeachFilm" type="button">film 추가</button>
+	        		<button id="btnAddFilm" type="button">film 추가</button>
 	        	</div>
 	        </div>
 	        
@@ -264,12 +269,19 @@
 			    <h3>출연 작품</h3>
 			    <div class="film-list">
 			        <c:forEach var="f" items="${filmList}">
-			            <a href="${pageContext.request.contextPath}/on/filmOne?filmId=${f.filmId}" class="film-card">
-			                <div class="film-title">
-			                    <!-- 영화 제목 앞에 아이콘 추가 -->
-			                    <i class="fas fa-film"></i> ${f.title}
-			                </div>
-			            </a>
+			            <div>
+				            <a href="${pageContext.request.contextPath}/on/filmOne?filmId=${f.filmId}" class="film-card">
+				                    <!-- 영화 제목 앞에 아이콘 추가 -->
+				                    <i class="fas fa-film" aria-hidden="true"></i>
+                    				<span class="film-title">${f.title}</span>
+				            </a>
+				             
+				             &nbsp;
+				               		
+				             <a href="${pageContext.request.contextPath}/on/removeFilmActor?filmId=${f.filmId}&actorId=${actor.actorId}" 
+				             		class="btn btn-danger">삭제</a>
+				             <!-- 삭제시 f.filmId & actor.actorId 필요 -->
+			            </div>   		
 			        </c:forEach>
 			    </div>
 			</div>

@@ -25,9 +25,17 @@ public class FilmService {
 		// FilmForm --> Film
 		film.setTitle(filmForm.getTitle());
 		// 가져온 값이 공백이면 null이고 값을 가져오면 그대로 셋한다
-		film.setDescription(filmForm.getDescription().equals("") ? null : filmForm.getDescription());
+		if(filmForm.getDescription().equals("")) {
+				film.setDescription(null);
+		} else {
+				film.setDescription(filmForm.getDescription());
+		}
+		
+		// 삼항연산자 사용하면
+		// film.setDescription(filmForm.getDescription().equals("") ? null : filmForm.getDescription());
+		
 		film.setReleaseYear(filmForm.getReleaseYear());
-		film.setLauguageId(filmForm.getLauguageId());
+		film.setLanguageId(filmForm.getLanguageId());
 		film.setOriginalLanguageId(film.getOriginalLanguageId());
 		film.setRentalDuration(film.getRentalDuration());
 		film.setRentalRate(film.getRentalRate());
@@ -38,14 +46,12 @@ public class FilmService {
 		if(filmForm.getSpecialFeatures() == null) {
 			film.setSpecialFeatures(null);
 		} else {
-		
-		// specialFeatures 배열 --> ,문자열
+			// specialFeatures 배열 --> ,문자열
 		String specialFeatures = filmForm.getSpecialFeatures().get(0);
 		
 		for(int i=1; i < filmForm.getSpecialFeatures().size(); i++) {
 			specialFeatures += ", " + filmForm.getSpecialFeatures().get(i);
 			}
-		
 			film.setSpecialFeatures(specialFeatures);
 		}
 		

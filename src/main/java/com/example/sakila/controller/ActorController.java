@@ -28,8 +28,31 @@ public class ActorController {
 	@Autowired ActorFileService actorFileService;
 	@Autowired FilmService filmService;
 	
-	// @PostMapping("/on/modifyActor")
-	// public 
+	@GetMapping("/on/removeActor")
+	public String removeActor(HttpSession session, @RequestParam int actorId) {
+		String path = session.getServletContext().getRealPath("/upload/");
+		actorService.removeActor(actorId, path);
+		return "redirect:/on/actorList";
+	}
+	
+	@PostMapping("/on/modifyActor")
+	public String modifyActor(Actor actor) {
+		log.debug(actor.toString());
+		
+		int row = actorService.modifyActor(actor);
+		
+		
+		return "redirect:/on/actorOne?actorId="+actor.getActorId();
+	}
+	
+	@GetMapping("/on/modifyActor")
+	public String modifyActor(Model model, @RequestParam int actorId) {
+		Actor actor = actorService.getActorOne(actorId);
+		log.debug("actor-->>" + actorId);
+		
+		model.addAttribute("actor", actor);
+		return "on/modifyActor";
+	}
 	
 	@GetMapping("/on/actorOne")
 	public String actorOne(Model model
