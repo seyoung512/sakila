@@ -143,13 +143,29 @@
 </head>
 <body>
 	<div class="container-fluid">
-	       <div class="row">
-	           <div class="col-sm-2">
-	               <!-- leftMenu.jsp include -->
-	        		<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
-	   		   </div>
+       <div class="row">
+           <div class="col-sm-2">
+               <!-- leftMenu.jsp include -->
+        		<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
+   		   </div>
+	   		
+	   	<!-- 
+	   		해야할 것
+	   		O 1) actor 상세 
+	   		X 1-1) actor 수정 - /on/modifyActor
+	   		X  1-2) actor 삭제 - /on/removeActor (actor_fil삭제 + film_actor삭제 + actor삭제)
+	   		
+	   		O 2) actorFile 리스트
+	   		O 2-1) actorFile 추가
+	   		X 2-2) actorFile 삭제 /on/removeFilmFile
+	   		
+	   		O 3) filmActor 리스트
+	   		X 3-1) filmActor 추가 /on/addFilmActor -> 필름 검색 후 선택
+	   		X 3-2) filmActor 삭제 /on/removeFilmByActor
+	   	 -->
+	   		
 	   			
-	    <div class="col-sm-10">
+	    <div class="col-sm-7">
 	        <h2 class="text-center mb-4">배우 정보</h2> <!-- 제목 추가 -->
 	        <!-- ACTOR -->
 	        <h3>배우</h3>
@@ -191,13 +207,19 @@
 	        		<td>삭제</td>	        		
 	        	</tr>
 	        	<c:forEach var="af" items="${actorFileList}">
-	        		<td>
-	        			<img src="${pageContext.request.contextPath}/upload/${af.filename}.${af.ext}">
-	        		</td>
-	        		<td>${af.type}</td>
-	        		<td>${af.size} Byte</td>
-	        		<td>${af.createDate}</td>	        		
-	        		<td><a href="" class="btn btn-warning">삭제</a></td>	        		
+	        		<tr>
+		        		<td>
+		        			<img src="${pageContext.request.contextPath}/upload/${af.filename}.${af.ext}">
+		        		</td>
+		        		<td>${af.type}</td>
+		        		<td>${af.size} Byte</td>
+		        		<td>${af.createDate}</td>	        		
+		        		<td>
+		        			<a href="${pageContext.request.contextPath}/on/removeActorFile?actorFileId=${af.actorFileId}&actorId=${actor.actorId}" 
+		        				class="btn btn-warning">삭제
+		        			</a>
+		        		</td>
+	        		</tr>	        		
 	        	</c:forEach>
 	        </table>
 	        <div>
@@ -205,6 +227,34 @@
 	        		class="btn btn-success">
 	        			이미지파일 추가
 	        	</a>
+	        </div>
+	        
+	        <br>
+	        
+	        <!-- FILM -->
+	        <div>
+	        	<h3>출연 작품 추가</h3>
+	        	
+	        	<div>
+	        		<!-- 출연작 추가 -->
+		        	<form id="formSearchFilm" method="get"
+		        		action="${pageContext.request.contextPath}/on/actorOne"><!-- 영화 검색 -->
+		        		<!-- film 검색 시 actorId 같이 넘겨주겠다 -->
+		        		<input type="hidden" name="actorId" value="${actor.actorId}">
+		        		<input type="text" name="searchTitle">
+		        		<button id="btnSeachFilm" type="button">film 검색</button>
+		        	</form>
+		        	
+		        	<form id="formAddFilm" method="post" action="${pageContext.request.contextPath}/on/addFilmByActor">	
+		        		<select size="5" name="filmId" value="${actor.actorId}"> 
+		        		<!-- 수정해야됨 -->
+		        			<c:forEach var="sf" items="${searchFilmList}">
+		        				<option value="${sf.filmId}">${sf.title}</option>
+		        			</c:forEach>
+		        		</select>
+		        	</form>
+	        		<button id="btnSeachFilm" type="button">film 추가</button>
+	        	</div>
 	        </div>
 	        
 	        <br>
@@ -226,4 +276,15 @@
     </div>
   </div>
 </body>
+<script>
+	// film title 검색하는 버튼
+	$('#btnSeachFilm').click(function(){
+		$('#formSearchFilm').submit();
+	});
+	
+	// 출연작(film) 추가
+	$('#btnAddFilm').click(function(){
+		$('#formAddFilm').submit();
+	});
+</script>
 </html>

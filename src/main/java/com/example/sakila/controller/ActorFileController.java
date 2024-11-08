@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,15 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ActorFileController {
 	@Autowired ActorFileService actorFileService;
+	
+	@GetMapping("/on/removeActorFile")
+	public String removeActorFile(HttpSession session
+								, @RequestParam int actorId
+								, @RequestParam int actorFileId) {
+		String path = session.getServletContext().getRealPath("/upload/");
+		actorFileService.removeActorFile(actorFileId, path);
+		return "redirect:/on/actorOne?actorId=" + actorId;
+	}
 	
 	@PostMapping("/on/addActorFile")
 	public String addActorFile(HttpSession session, Model model, ActorForm actorForm) {

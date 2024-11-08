@@ -97,11 +97,26 @@
 </head>
 <body>
 	<div class="container-fluid">
-	       <div class="row">
-	           <div class="col-sm-2">
-	               <!-- leftMenu.jsp include -->
-	        		<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
-	   		   </div>
+       <div class="row">
+           <div class="col-sm-2">
+               <!-- leftMenu.jsp include -->
+        		<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
+   		   </div>
+   		   
+  		 <!-- 
+   			해야할 것
+	   		O 1) film 상세 
+	   		X 1-1) film 수정 - /on/modifyFilm
+	   		X 1-2) film 삭제 - /on/removeFilm (film_catagory 삭제 + film_actor 삭제 + film 삭제)
+	   		
+	   		O 2) film_category 리스트
+	   		O 2-1) film_category 추가 /on/addFilmCategory -> 카테고리 전체 목록에서 선택
+	   		X 2-2) film_category 삭제 /on/removeFilmCategory
+	   		
+	   		O 3) film_actor 리스트
+	   		X 3-1) film_actor 추가 /on/addActorByFilm -> 액터 검색 후 선택
+	   		X 3-2) film_actor 삭제 /on/removeeFileActor
+	   	 -->
 	   			
 	    <div class="col-sm-6">
 	    
