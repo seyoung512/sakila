@@ -48,33 +48,123 @@
                 <c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
             </div>
             <div class="col-sm-5">
-                <h1 class="text-center">언어 추가</h1>
+                <h1 class="text-center">스탭 추가</h1>
                 
-                <form id="addLanguage" action="${pageContext.request.contextPath}/on/addLanguage" method="post">
-                    <table class="table">
-                        <tr>
-                            <td>Name</td>
-                            <td>
-                                <input type="text" name="name" id="name" class="form-control">
-                            </td>
-                        </tr>
-                    </table>
+                <form id="formAddress" action="${pageContext.request.contextPath}/on/addStaff" method="get">
+                   <div class="input-group mb-3">
+                       <input type="text" name="searchAddress" id="searchAddress" class="form-control" placeholder="주소 검색어 입력">
+                       <button type="button" id="btnAddress" class="btn btn-custom">주소 검색</button>
+                   </div>
+                </form>
+                
+                <br>
+                
+                <h3>주소 선택</h3>
+                <select id="resultAddress" size="10" class="form-select mb-3">
+                    <c:forEach var="a" items="${addressList}">
+                        <option value="${a.addressId}">(ADDRESS ID: ${a.addressId}) ${a.address}</option>
+                    </c:forEach>
+                </select>
+                <button type="button" id="btnAddrSel" class="btn btn-custom">주소 선택</button>
+                
+                <br>
+                
+                <h3>정보 입력</h3>
+                <form id="addForm" action="${pageContext.request.contextPath}/on/addStaff" method="post">
+                   <table class="table">
+	                   <tr>
+							<td>storeId</td>
+							<td>
+								<select name="storeId" id="storeId">
+									<option value="">:::선택:::</option>
+									<c:forEach var="s" items="${storeList}">
+										<option value="${s.storeId}">${s.storeId}</option>
+									</c:forEach>
+								</select>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>addressId</td>
+							<td>
+								<input type="text" name="addressId" id="addressId" readonly>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>firstName</td>
+							<td>
+								<input type="text" name="firstName" id="firstName">
+							</td>
+						</tr>
+						
+						<tr>
+							<td>lastName</td>
+							<td>
+								<input type="text" name="lastName" id="lastName">
+							</td>
+						</tr>
+						
+						<tr>
+							<td>email</td>
+							<td>
+								<input type="text" name="email" id="email">
+							</td>
+						</tr>
+						
+						<tr>
+							<td>userName</td>
+							<td>
+								<input type="text" name="username" id="username">
+							</td>
+						</tr>
+						
+					</table>
                     <button id="btnAddLanguage" type="button" class="btn btn-custom">언어 추가</button>
                 </form>
             </div>
         </div>
     </div>
     <script>
-        // 액션 서브밋 버튼
-        $('#btnAddLanguage').click(function() {
-            // 입력폼 유효성 검사
-            if($('#name').val() === "") {
-                alert('name를 입력하세요');
-            } else {
-                console.log('submit....');
-                $('#addLanguage').submit();
-            }
-        });
+	 // 액션 서브밋 버턴
+	$('#btnAddStaff').click(function() {
+		// 입력폼 유효성 검사
+		if($('#storeId').val() == null || $('#storeId').val() =='') {
+			alert('storeId를 입력하세요');
+		} else if($('#addressId').val() == null || $('#addressId').val() =='') {
+			alert('addressId를 입력하세요');
+		} else if($('#firstName').val() == null || $('#firstName').val() =='') {
+			alert('firstName를 입력하세요');
+		} else if($('#lastName').val() == null || $('#lastName').val() =='') {
+			alert('lastName를 입력하세요');
+		} else if($('#email').val() == null || $('#email').val() =='') {
+			alert('email를 입력하세요');
+		} else if($('#username').val() == null || $('#username').val() =='') {
+			alert('username를 입력하세요');
+		} else{
+			console.log('submit....');
+			$('#addForm').submit();
+		}
+	});
+	
+	// 주소 선택 버턴
+	$('#btnAddrSel').click(function() {
+		console.log($('#resultAddress').val());
+		if($('#resultAddress').val() == null || $('#resultAddress').val() =='') {
+			alert('주소 선택을 먼저 하세요');
+		} else {
+			$('#addressId').val($('#resultAddress').val());
+		}
+	});
+
+	// 주소 검색 버턴
+	$('#btnAddress').click(function(){
+		if($('#searchAddress').val() == "") {
+			alert('주소 검색어를 입력하세요');
+		} else {
+			$('#formAddress').submit();
+		}
+	});
     </script>
 </body>
 </html>

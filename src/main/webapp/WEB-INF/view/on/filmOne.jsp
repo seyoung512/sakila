@@ -183,11 +183,43 @@
 	        
 	        <div>
 	        	<h3>작품 장르(CATEGORY)</h3>
+	   
+	        	<!-- 영화 카테고리 추가 -->
+	        	<form method="post">
+	        		<select name="categoryId" id="categoryId">
+	    				<option value="">카테고리 선택</option>
+	        			<!-- model.allCategoryList -->
+	           			<c:forEach var="ac" items="${allCategoryList}">
+	           				<option value="${ac.categoryId}">${ac.name}</option>
+	           			</c:forEach>
+	           		
+	           		</select>
+	        		<button type="button">현재영화 카테고리 추가</button>
+	        	</form>
+	        	
+	        	<!-- 카테고리 리스트 model.filmCategoryList-->
+	        	
 	        </div>
 	        
 	        <div>
 	        	<h2 class="text-center mb-4" >출연배우</h2>
 	        	<div class="row">
+	        		
+	        		<!-- 배우 이름 검색 -->
+	        		<form>
+	        			<input type="text" name="searchName">
+	        			<button type="button">이름검색</button>
+	        		</form>
+	        		
+	        		<!-- 배우 추가 -->
+	        		<form method="post">
+		        		<select name="actorId" id="actorId" size="5">
+		    				<option value="5">배우 선택</option>
+		        			<!-- model.categoryList -->
+		           		</select>		           		
+		           		<button type="button">출연배우추가</button>
+	        		</form>
+	        		
 	        		<c:forEach var="a" items="${actorList}">
 	        			<div class="col-md-4 mb-3">
 	        				<div class="actor-card">

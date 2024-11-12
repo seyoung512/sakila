@@ -2,40 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sakila.mapper.FilmMapper">
 	<!-- POST : /on/modifyFilm -->
-	<update id="updateFilm" parameterType="com.example.sakila.vo.Film">
+	<update id="updateFilm" parameterType="com.example.sakila.vo.Film"> <!-- 참조 null, 숫자0ㅡ false -->
 		UPDATE film
 		<set>
 			<if test="title != null">
-				title = #{title}
+				title = #{title},
 			</if>
-			<if test="description != null">
-				description = #{description}
+			<if test="description != 0">
+				description = #{description},
 			</if>
-			<if test="releaseYear != null">
-				releaseYear = #{releaseYear}
+			<if test="releaseYear != 0">
+				releaseYear = #{releaseYear},
 			</if>
-			<if test="languageId != null">
-				languageId = #{languageId}
+			<if test="languageId != 0">
+				languageId = #{languageId},
 			</if>
-			<if test="originalLanguageId != null">
-				originalLanguageId = #{originalLanguageId}
+			<if test="originalLanguageId != 0">
+				originalLanguageId = #{originalLanguageId},
 			</if>
-			<if test="rentalDuration != null">
-				rentalDuration = #{rentalDuration}
+			<if test="rentalDuration != 0">
+				rentalDuration = #{rentalDuration},
 			</if>
-			<if test="rentalRate != null">
-				rentalRate = #{rentalRate}
+			<if test="rentalRate != 0">
+				rentalRate = #{rentalRate},
 			</if>
-			<if test="length != null">
-				length = #{length}
+			<if test="length != 0">
+				length = #{length},
 			</if>
-			<if test="replacementCost != null">
-				replacementCost = #{replacementCost}
+			<if test="replacementCost != 0">
+				replacementCost = #{replacementCost},
 			</if>
-			<if test="rating != null">
-				rating = #{rating}
+			<if test="rating != 0">
+				rating = #{rating},
 			</if>
-			<if test="specialFeatures != null">
+			<if test="specialFeatures != 0">
 				specialFeatures = #{specialFeatures}
 			</if>
 		</set>

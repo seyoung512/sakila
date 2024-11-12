@@ -14,13 +14,51 @@ import com.example.sakila.mapper.FilmMapper;
 import com.example.sakila.vo.Film;
 import com.example.sakila.vo.FilmForm;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @Transactional
 public class FilmService {
 	@Autowired FilmMapper filmMapper;
 	@Autowired FilmActorMapper filmActorMapper;
 	@Autowired FilmCategoryMapper filmCategoryMapper;
+	
+	public Integer modifyFilm(FilmForm filmForm) {
+		Film film = new Film();
+		// FilmForm --> Film
+		film.setTitle(filmForm.getTitle());
+		if(filmForm.getDescription().equals("")) {
+			 film.setDescription(null);
+		} else {
+			film.setDescription(filmForm.getDescription());
+		}
 		
+		film.setReleaseYear(filmForm.getReleaseYear());
+		film.setLanguageId(filmForm.getLanguageId());
+		film.setOriginalLanguageId(filmForm.getOriginalLanguageId());
+		film.setRentalDuration(filmForm.getRentalDuration());
+		film.setRentalRate(filmForm.getRentalRate());
+		film.setLength(filmForm.getLength());
+		film.setReplacementCost(filmForm.getReplacementCost());
+		film.setRating(filmForm.getRating());
+		
+		if(filmForm.getSpecialFeatures() == null) {
+			film.setSpecialFeatures(null);
+		} else {
+			// specialFeatures 배열 -> ,문자열
+			String specialFeatures = filmForm.getSpecialFeatures().get(0);
+			
+			for(int i=1; i < filmForm.getSpecialFeatures().size(); i++) {
+				specialFeatures += "," + filmForm.getSpecialFeatures().get(i);
+			}
+			
+			film.setSpecialFeatures(specialFeatures);
+		}
+		log.debug(film.toString());
+		return filmMapper.updateFilm(film);
+	}
+	
 	public void removeFilmByKey(Integer filmId) {
 		// 필름_카테고리 삭제
 		filmCategoryMapper.deleteFilmCategoryByFilm(filmId);
