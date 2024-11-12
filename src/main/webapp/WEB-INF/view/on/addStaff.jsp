@@ -48,111 +48,31 @@
                 <c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
             </div>
             <div class="col-sm-5">
-                <h1 class="text-center">스탭 추가</h1>
+                <h1 class="text-center">언어 추가</h1>
                 
-                <form id="formAddress" action="${pageContext.request.contextPath}/on/addStaff" method="get">
-                    <div class="input-group mb-3">
-                        <input type="text" name="searchAddress" id="searchAddress" class="form-control" placeholder="주소 검색어 입력">
-                        <button type="button" id="btnAddress" class="btn btn-custom">주소 검색</button>
-                    </div>
-                </form>
-                
-                <div>
-                    <h3>주소 선택</h3>
-                    <select id="resultAddress" size="10" class="form-select mb-3">
-                        <c:forEach var="a" items="${addressList}">
-                            <option value="${a.addressId}">(ADDRESS ID: ${a.addressId}) ${a.address}</option>
-                        </c:forEach>
-                    </select>
-                    <button type="button" id="btnAddrSel" class="btn btn-custom">주소 선택</button>
-                </div>
-                <br>
-                <h3>정보 입력</h3>
-                <form id="addForm" action="${pageContext.request.contextPath}/on/addStaff" method="post">
+                <form id="addLanguage" action="${pageContext.request.contextPath}/on/addLanguage" method="post">
                     <table class="table">
                         <tr>
-                            <td>Store ID</td>
+                            <td>Name</td>
                             <td>
-                                <select name="storeId" id="storeId" class="form-select">
-                                    <option value="">:::선택:::</option>
-                                    <c:forEach var="s" items="${storeList}">
-                                        <option value="${s.storeId}">${s.storeId}</option>
-                                    </c:forEach>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Address ID</td>
-                            <td>
-                                <input type="text" name="addressId" id="addressId" readonly class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>First Name</td>
-                            <td>
-                                <input type="text" name="firstName" id="firstName" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Last Name</td>
-                            <td>
-                                <input type="text" name="lastName" id="lastName" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>
-                                <input type="text" name="email" id="email" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Username</td>
-                            <td>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <input type="text" name="name" id="name" class="form-control">
                             </td>
                         </tr>
                     </table>
-                    <button id="btnAddStaff" type="button" class="btn btn-custom">스탭 추가</button>
+                    <button id="btnAddLanguage" type="button" class="btn btn-custom">언어 추가</button>
                 </form>
             </div>
         </div>
     </div>
     <script>
         // 액션 서브밋 버튼
-        $('#btnAddStaff').click(function() {
+        $('#btnAddLanguage').click(function() {
             // 입력폼 유효성 검사
-            if($('#storeId').val() === "") {
-                alert('Store ID를 입력하세요');
-            } else if($('#addressId').val() === "") {
-                alert('Address ID를 입력하세요');
-            } else if($('#firstName').val() === "") {
-                alert('First Name을 입력하세요');
-            } else if($('#lastName').val() === "") {
-                alert('Last Name을 입력하세요');
-            } else if($('#email').val() === "") {
-                alert('Email을 입력하세요');
-            } else if($('#username').val() === "") {
-                alert('Username을 입력하세요');
+            if($('#name').val() === "") {
+                alert('name를 입력하세요');
             } else {
                 console.log('submit....');
-                $('#addForm').submit();
-            }
-        });
-
-        // 주소 선택 버튼
-        $('#btnAddrSel').click(function() {
-            if($('#resultAddress').val() === "") {
-                alert('주소 선택을 먼저 하세요');
-            } else {
-                $('#addressId').val($('#resultAddress').val());
-            }
-        });
-        
-        $('#btnAddress').click(function(){
-            if($('#searchAddress').val() === "") {
-                alert('주소 검색어를 입력하세요');
-            } else {
-                $('#formAddress').submit();
+                $('#addLanguage').submit();
             }
         });
     </script>

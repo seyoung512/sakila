@@ -32,7 +32,7 @@ public class StaffController {
 	@Autowired StoreService storeService;
 	@Autowired AddressService addressService;
 	
-	// active 수정
+	// 직원의 active값을 전환하는 기능
 	@GetMapping("/on/modifyStaffActive")
 	public String modifyStaffActive(Staff staff) {
 		if(staff.getActive() == 1) {
@@ -44,6 +44,7 @@ public class StaffController {
 		return "redirect:/on/staffList";
 	}
 	
+	// 주소검색 기능
 	// leftMenu.a태그, addStaff.주소검색 
 	@GetMapping("/on/addStaff")
 	public String addStaff(Model model
@@ -64,6 +65,7 @@ public class StaffController {
 		return "on/addStaff";
 	}
 	
+	// 
 	@PostMapping("/on/addStaff")
 	public String addStaff(Staff staff) { // 커맨드 객체 생성 -> 커맨드객체.set(request.getParameter())
 		// insert 호출

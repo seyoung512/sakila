@@ -106,8 +106,8 @@
   		 <!-- 
    			해야할 것
 	   		O 1) film 상세 
-	   		X 1-1) film 수정 - /on/modifyFilm
-	   		X 1-2) film 삭제 - /on/removeFilm (film_catagory 삭제 + film_actor 삭제 + film 삭제)
+	   		x 1-1) film 수정 - /on/modifyFilm
+	   		O 1-2) film 삭제 - /on/removeFilm (inventory 렌탈정보확인 + film_catagory 삭제 + film_actor 삭제 + film 삭제)
 	   		
 	   		O 2) film_category 리스트
 	   		O 2-1) film_category 추가 /on/addFilmCategory -> 카테고리 전체 목록에서 선택
@@ -116,6 +116,8 @@
 	   		O 3) film_actor 리스트
 	   		X 3-1) film_actor 추가 /on/addActorByFilm -> 액터 검색 후 선택
 	   		X 3-2) film_actor 삭제 /on/removeeFileActor
+	   	 
+	   	 	X 4) inventory 정보
 	   	 -->
 	   			
 	    <div class="col-sm-6">
@@ -170,6 +172,18 @@
 	  	    </table>
 	  
 	        <br>
+	        
+	        <div>
+	        	<a href="${pageContext.request.contextPath}/on/modifyFilm?filmId=${film.filmId}">영화 수정</a>
+	        	<a href="${pageContext.request.contextPath}/on/removeFilm?filmId=${film.filmId}">영화 삭제</a>
+	        	<span class="text-danger">${removeFilmMsg}</span>
+	        </div>
+	        
+	        <br>
+	        
+	        <div>
+	        	<h3>작품 장르(CATEGORY)</h3>
+	        </div>
 	        
 	        <div>
 	        	<h2 class="text-center mb-4" >출연배우</h2>
