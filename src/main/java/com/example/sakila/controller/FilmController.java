@@ -119,11 +119,14 @@ public class FilmController {
 	}
 
 	@GetMapping("/on/filmOne")
-	public String filmOne(Model model, @RequestParam int filmId, @RequestParam(required = false) String seachName) {
+	public String filmOne(Model model, @RequestParam Integer filmId, @RequestParam(required = false) String searchName) {
 
 		/*
-		 * O 1) 현재 필름 정보 O 2) 전체 카테고리 3) 현재 필름의 카테고리 4) 검색 배우 리스트(searchName이 null이 아닐
-		 * 때) o 5) 현재 필름의 배우 리스트
+		 * O 1) 현재 필름 정보 
+		 * O 2) 전체 카테고리 
+		 * O 3) 현재 필름의 카테고리 
+		 * O 4) 검색 배우 리스트(searchName이 null이 아닐 때) 
+		 * O 5) 현재 필름의 배우 리스트
 		 */
 
 		// 1)
@@ -136,6 +139,12 @@ public class FilmController {
 		// 3)
 		List<Map<String, Object>> filmCategoryList = filmCategoryService.getFilmCategoryListByFilm(filmId);
 
+		// 4)
+		if(searchName != null) {
+			List<Actor> searchActorList = actorService.getActorListByActor(searchName);
+			model.addAttribute("searchActorList", searchActorList);
+		}
+		
 		// 5)
 		List<Actor> actorList = actorService.getActorListByFilm(filmId);
 

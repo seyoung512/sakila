@@ -110,12 +110,12 @@
 	   		O 1-2) film 삭제 - /on/removeFilm (inventory 렌탈정보확인 + film_catagory 삭제 + film_actor 삭제 + film 삭제)
 	   		
 	   		O 2) film_category 리스트
-	   		O 2-1) film_category 추가 /on/addFilmCategory -> 카테고리 전체 목록에서 선택
-	   		X 2-2) film_category 삭제 /on/removeFilmCategory
+	   		O 2-1) film_category 추가 /on/addFilmCategory ->	[이슈] 동일한 카테고리를 한번 더 추가하면 PK중복에러 발생
+	   		O 2-2) film_category 삭제 /on/removeFilmCategory
 	   		
 	   		O 3) film_actor 리스트
-	   		X 3-1) film_actor 추가 /on/addActorByFilm -> 액터 검색 후 선택
-	   		X 3-2) film_actor 삭제 /on/removeeFileActor
+	   		O 3-1) film_actor 추가 /on/addActorByFilm -> 액터 검색 후 선택 ->[이슈] 동일한 배우를 한번 더 추가하면 PK중복에러 발생
+	   		O 3-2) film_actor 삭제 /on/removeeFileActor
 	   	 
 	   	 	X 4) inventory 정보
 	   	 -->
@@ -185,7 +185,8 @@
 	        	<h3>작품 장르(CATEGORY)</h3>
 	   
 	        	<!-- 영화 카테고리 추가 -->
-	        	<form method="post">
+	        	<form id="formFileCategory" action="${pageContext.request.contextPath}/on/addFilmCategory" method="post">
+	        		<input type="hidden" name="filmId" value="${film.filmId}">
 	        		<select name="categoryId" id="categoryId">
 	    				<option value="">카테고리 선택</option>
 	        			<!-- model.allCategoryList -->
@@ -194,11 +195,19 @@
 	           			</c:forEach>
 	           		
 	           		</select>
-	        		<button type="button">현재영화 카테고리 추가</button>
+	        		<button id="btnFileCategory" type="button">현재영화 카테고리 추가</button>
 	        	</form>
 	        	
 	        	<!-- 카테고리 리스트 model.filmCategoryList-->
-	        	
+	        	<div>
+	        		<c:forEach var="fc" items="${filmCategoryList}">
+	        			<div>
+	        				${fc.name}
+	        				&nbsp;
+	        				<a href="${pageContext.request.contextPath}/on/removeFilmCategory?filmId=${fc.filmId}&categoryId=${fc.categoryId}">삭제</a>
+	        			</div>
+	        		</c:forEach>
+	        	</div>
 	        </div>
 	        
 	        <div>
@@ -206,18 +215,24 @@
 	        	<div class="row">
 	        		
 	        		<!-- 배우 이름 검색 -->
-	        		<form>
-	        			<input type="text" name="searchName">
-	        			<button type="button">이름검색</button>
-	        		</form>
-	        		
-	        		<!-- 배우 추가 -->
-	        		<form method="post">
+	         		<form id="formSearchName" method="get" action="${pageContext.request.contextPath}/on/filmOne">
+		        		
+		        		<input type="hidden" name="filmId" value="${film.filmId}">
+		        		
+		        		<input type="text" name="searchName" id="searchName">
+		        		<button id="btnSearchName" type="button">이름검색</button>
+		        	</form>	
+		        	
+		        	<!-- 출연배우 추가 -->
+		        	<form id="formFilmActor" method="post" action="${pageContext.request.contextPath}/on/addFilmActorByFilm">	
+		        		<input type="hidden" name="filmId" value="${film.filmId}">
 		        		<select name="actorId" id="actorId" size="5">
-		    				<option value="5">배우 선택</option>
 		        			<!-- model.categoryList -->
-		           		</select>		           		
-		           		<button type="button">출연배우추가</button>
+		    				<c:forEach var="sa" items="${searchActorList}">
+								<option value="${sa.actorId}">${sa.firstName} ${sa.lastName}</option>
+							</c:forEach>
+						</select>		           		
+		           		<button id="btnFilmActor" type="button">출연배우추가</button>
 	        		</form>
 	        		
 	        		<c:forEach var="a" items="${actorList}">
@@ -230,6 +245,8 @@
 	        					</a>
 	        					<!-- 배우의 역할 또는 기타 정보 추가 가능 -->
 	        					<div class="actor-role">배우의 역할/기타 정보</div>
+	        					&nbsp;
+	        					<a href="${pageContext.request.contextPath}/on/removeFilmActorByFilm?filmId=${film.filmId}&actorId=${a.actorId}">삭제</a>
 	        				</div>
 	        			</div>
 	        		</c:forEach>
@@ -240,4 +257,30 @@
     </div>
   </div>
 </body>
+<script>
+	$('#btnFilmActor').click(function() {
+		if($('#actorId').val() == null || $('#actorId').val() == '') {
+			alert('출연배우를 선택하세요');
+		} else {
+			$('#formFilmActor').submit();
+		}
+	});
+	
+	$('#btnSearchName').click(function() {
+		if($('#searchName').val() == '') {
+			alert('검색이름을 입력하세요');
+		} else {
+			$('#formSearchName').submit();
+		}
+	});
+	
+	$('#btnFileCategory').click(function() {
+		if($('#categoryId').val() == '') {
+			alert('categoryId를 선택하세요');
+		} else {
+			$('#formFileCategory').submit();	
+		}
+	});
+</script>
+
 </html>

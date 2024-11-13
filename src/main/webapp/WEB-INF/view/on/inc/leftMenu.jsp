@@ -28,7 +28,11 @@
 	  		 	POST - /on/addStore - StroeController.addStore(Store)
 	  		 	
 	  		 -->
-	  		
+	  <li class="list-group-item bg-light">
+			<a href="${pageContext.request.contextPath}/on/addInventory" class="btn">인벤토리 추가</a></li>
+	
+	  <!-- ------------------------------------------------------------------------ -->		
+	  
 	  <li class="list-group-item">
 	  		::: STAFF 관리 :::</li>		
 	  <li class="list-group-item">

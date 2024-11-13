@@ -5,8 +5,15 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.sakila.vo.FilmCategory;
+
 @Mapper
 public interface FilmCategoryMapper {
+	Integer deleteFilmCategory(FilmCategory filmcategory);
+	
+	// /on/filmCategory
+	Integer insertFilmCategory(FilmCategory filmCateogory);
+	
 	// /on/filmOne
 	List<Map<String, Object>> selectFilmCategoryListByFilm(Integer filmId);
 	
