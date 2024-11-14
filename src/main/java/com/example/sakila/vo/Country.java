@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Country {
-	private int countryId; //pk
+	private Integer countryId; //pk
 	private String country;
 	private String lastUpdate;
 }

@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class Payment {
-	private int paymentId; //pk
-	private int customerId; //k, fk
-	private int staffId; //k, fk
-	private int rentalId; //k, fk
+	private Integer paymentId; //pk
+	private Integer customerId; //k, fk
+	private Integer staffId; //k, fk
+	private Integer rentalId; //k, fk
 	private double amount;
 	private String paymentDate;
 	private String lastUpdate;

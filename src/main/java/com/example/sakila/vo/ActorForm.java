@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class ActorForm {
-	private int actorId; // addActorFile 때문에 id 입력
+	private Integer actorId; // addActorFile 때문에 id 입력
 	private String firstName;
 	private String lastName;
 	private List<MultipartFile> actorFile;
