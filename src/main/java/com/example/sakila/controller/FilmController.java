@@ -28,96 +28,105 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class FilmController {
-	@Autowired
-	FilmService filmService;
-	@Autowired
-	ActorService actorService;
-	@Autowired
-	LanguageService languageService;
-	@Autowired
-	CategoryService categoryService;
-	@Autowired
-	InventoryService inventoryService;
-	@Autowired
-	FilmCategoryService filmCategoryService;
-
+	
+	@Autowired FilmService filmService;
+	@Autowired ActorService actorService;
+	@Autowired LanguageService languageService;
+	@Autowired CategoryService categoryService;
+	@Autowired InventoryService inventoryService;
+	@Autowired FilmCategoryService filmCategoryService;
+	
+	// 영화 수정 페이지 요청 처리
 	@GetMapping("/on/modifyFilm")
 	public String modifyFilm(Model model, Film film) {
-		log.debug(film.toString());
-
+		log.debug(film.toString()); // 수정할 영화 정보 출력
+		
+		// 영화에 사용될 언어 리스트 가져오기
 		List<Language> languageList = languageService.getLanguageList();
 		log.debug(languageList.toString());
 		model.addAttribute("languageList", languageList);
-
+		
+		// 영화 상세 페이지로 리다이렉트
 		return "redirect:/on/filmOne?filmOne=" + film.getFilmId();
 	}
 
+	// 영화 삭제 요청 처리
 	@GetMapping("/on/removeFilm")
 	public String removeFilm(Model model, @RequestParam Integer filmId) {
-
-		// 필름이 인벤토리에 등록되어 있다면 삭제 불가
+		// 영화가 인벤토리에 존재하는지 확인
 		Integer count = inventoryService.getCountInventoryByFilm(filmId);
 		if (count != 0) {
-			/* 메세지 추가 할려면 ... but 중복코드 리팩토링 이슈발생 */
+			// 영화가 인벤트로에 존재하면 삭제 불가, 메시지와 함께 영화 상세페이지로 리다이렉트
 			Map<String, Object> film = filmService.getFilmOne(filmId);
 			log.debug(film.toString());
-
+			
+			// 해당 영화의 배우 목록 가져오기
 			List<Actor> actorList = actorService.getActorListByFilm(filmId);
 
 			model.addAttribute("film", film);
 			model.addAttribute("actorList", actorList);
 			model.addAttribute("removeFilmMsg", "film이 inventory에 존재합니다");
 			return "on/filmOne";
-
-			// return "redirect:/on/filmOne"; // 메세지 추가가 힘든 구현
 		}
-
+		
+		// 영화가 인벤토리에 없다면 삭제
 		filmService.removeFilmByKey(filmId);
+		
+		// 영화 리스트 페이지로 리다이렉트
 		return "redirect:/on/filmList";
 	}
 
+	// 영화 목록 페이지 요청 처리
 	@GetMapping("/on/filmList")
 	public String filmList(Model model, @RequestParam(required = false) Integer categoryId,
 			@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "10") int rowPerPage) {
 		log.debug("categoryId: " + categoryId);
 		log.debug("currentPage: " + currentPage);
 		log.debug("rowPerPage: " + rowPerPage);
-
+		
+		// 영화 목록 가져오기
 		List<Map<String, Object>> filmList = filmService.getFilmList(categoryId, currentPage, rowPerPage);
 		log.debug("filmList: " + filmList);
 		model.addAttribute("filmList", filmList);
 
-		// Model에 catetory List 추가
+		// 카테고리 목록 가져오기
 		List<Category> categoryList = categoryService.getCategoryList();
 		log.debug("categoryList: " + categoryList);
 		model.addAttribute("categoryList", categoryList);
 
-		// 같이 넘겨야 모델값 현재페이지, 현재카테고리ID
+		// 현재 페이지, 카데고리 ID를 모델에 추가
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("currentCategoryId", categoryId);
 
+		// 영화 목록 페이지로 이동
 		return "on/filmList";
 	}
 
+	// 영화 추가 처리 (POST)
 	@PostMapping("/on/addFilm")
 	public String addFilm(FilmForm filmForm) {
-		log.debug(filmForm.toString());
+		log.debug(filmForm.toString()); // 추가할 영화 정보 출력
 
-		// filmService : FilmForm -> Film
+		// FilmForm Film 객체로 변환하여 영화 추가
 		filmService.addFilm(filmForm);
 
+		// 영화 목록 페이지로 리다이렉트
 		return "redirect:/on/filmList";
 	}
-
+	
+	// 영화 추가 페이지로 요청 처리 (GET)
 	@GetMapping("/on/addFilm")
 	public String addFilm(Model model) {
-		// languageList
+		// 언어 목록 가져오기
 		List<Language> languageList = languageService.getLanguageList();
 		log.debug(languageList.toString());
 		model.addAttribute("languageList", languageList);
+		
+		// 영화 추가 페이지로 이동
 		return "on/addFilm";
 	}
-
+	
+	// 영화 상세 페이지 요청 처리
 	@GetMapping("/on/filmOne")
 	public String filmOne(Model model, @RequestParam Integer filmId, @RequestParam(required = false) String searchName) {
 
@@ -129,31 +138,31 @@ public class FilmController {
 		 * O 5) 현재 필름의 배우 리스트
 		 */
 
-		// 1)
+		// 1) 영화 정보 가져오기
 		Map<String, Object> film = filmService.getFilmOne(filmId);
 		log.debug(film.toString());
 
-		// 2)
+		// 2) 전체 카테고리 목록 가져오기
 		List<Category> allCategoryList = categoryService.getCategoryList();
 
-		// 3)
+		// 3) 현재 영화에 해당하는 카테고리 목록 가져오기
 		List<Map<String, Object>> filmCategoryList = filmCategoryService.getFilmCategoryListByFilm(filmId);
 
-		// 4)
+		// 4) 검색어가 있을 경우 배우 검색
 		if(searchName != null) {
 			List<Actor> searchActorList = actorService.getActorListByActor(searchName);
 			model.addAttribute("searchActorList", searchActorList);
 		}
 		
-		// 5)
+		// 5) 현재 영화에 출연한 배우 목록 가져오기
 		List<Actor> actorList = actorService.getActorListByFilm(filmId);
 
 		model.addAttribute("film", film);
 		model.addAttribute("allCategoryList", allCategoryList);
 		model.addAttribute("filmCategoryList", filmCategoryList);
-
 		model.addAttribute("actorList", actorList);
 
+		// 영화 상세 페이지로 이동
 		return "on/filmOne";
 	}
 }

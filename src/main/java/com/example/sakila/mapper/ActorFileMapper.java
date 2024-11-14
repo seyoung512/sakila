@@ -8,17 +8,19 @@ import com.example.sakila.vo.ActorFile;
 
 @Mapper
 public interface ActorFileMapper {
-	// /on/removeActor
-	int deleteActorFileByActor(int actorId);
 	
-	// /on/removeActorFile:Service
-	ActorFile selectActorFileOne(int actorFileId);
+	// /on/removeActor - 배우에 관련된 모든 파일을 삭제
+	Integer deleteActorFileByActor(Integer actorId);
 	
-	// /on/removeActorFile
-	int deleteActorFile(int actorFileId);
+	// /on/removeActorFile - 특정 배우 파일을 ID로 조회
+	ActorFile selectActorFileOne(Integer actorFileId);
 	
-	// /on/actorOne
-	List<ActorFile> selectActorFileListByActor(int actorId);
+	// /on/removeActorFile - 특정 배우 파일을 삭제 
+	Integer deleteActorFile(Integer actorFileId);
 	
-	int insertActorFile(ActorFile actorFile);
+	// /on/actorOne - 특정 배우에 해당하는 파일 목록을 조회
+	List<ActorFile> selectActorFileListByActor(Integer actorId);
+	
+	// 배우 파일을 삽입
+	Integer insertActorFile(ActorFile actorFile);
 }

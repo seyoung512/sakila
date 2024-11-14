@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sakila.mapper.ActorFileMapper">
+	
 	<!-- 동일 Actor의 모든 파일 삭제 -->
 	<delete id="deleteActorFileByActor" parameterType="int">
 		DELETE FROM actor_file
 		WHERE actor_id = #{actorId}
 	</delete>
 	
+	<!-- actor_file_id로 특정 파일을 조회 -->
 	<select id="selectActorFileOne" parameterType="int" resultType="com.example.sakila.vo.ActorFile">
 		SELECT
 			 actor_file_id actorFileId
 			, filename
 			, ext
 		FROM actor_file
-		WHERE actor_file_id = #{actorFileId}
-		
+		WHERE actor_file_id = #{actorFileId}	
 	</select>
 	
-	<!-- /on/removeActorFile -->
+	<!-- actor_file_id로 파일 삭제 -->
 	<delete id="deleteActorFile" parameterType="int">
 		DELETE FROM actor_file
 		WHERE actor_file_id = #{actorFileId}
 	</delete>
 	
-	<!-- -->
+	<!-- 특정 actor의 모든 파일 리스트 조회 -->
 	<select id="selectActorFileListByActor" parameterType="int"
 		resultType="com.example.sakila.vo.ActorFile">
 		SELECT
@@ -38,7 +39,8 @@
 		FROM actor_file
 		WHERE actor_id = #{actorId}
 	</select>
-
+	
+	<!-- actor_file 테이블에 새로운 파일을 추가 -->
 	<insert id="insertActorFile"
 		parameterType="com.example.sakila.vo.ActorFile">
 		INSERT INTO actor_file(
@@ -46,6 +48,6 @@
 		) VALUES (
 		#{actorId}, #{originname}, #{filename}, #{ext}, #{type}, #{size}
 		)
-
 	</insert>
+	
 </mapper>

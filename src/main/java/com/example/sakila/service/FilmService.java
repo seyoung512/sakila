@@ -64,7 +64,7 @@ public class FilmService {
 		filmCategoryMapper.deleteFilmCategoryByFilm(filmId);
 		
 		// 필름_배우 삭제
-		filmActorMapper.deleteActoryByFilm(filmId);
+		filmActorMapper.deleteActorByFilm(filmId);
 		
 		// 필름 삭제
 		filmMapper.deleteFilmByKey(filmId);

@@ -10,24 +10,27 @@ import com.example.sakila.vo.Film;
 @Mapper
 public interface FilmMapper {
 	
+	// 영화 정보 수정
 	Integer updateFilm(Film film);
 	
+	// 영화 삭제
 	Integer deleteFilmByKey(Integer filmId); 
 	
-	// categoryId가 null이나 0이 아닐때
+	// 카테고리에 속한 영화 목록을 조회하는 메서드
 	List<Map<String, Object>> selectFilmListByCategory(Map<String, Object> paramMap);
 	
-	// categoryId가 null이거나 0 일때
+	// 카테고리와 관계없이 영화 목록을 조회
 	List<Map<String, Object>> selectFilmList(Map<String, Object> paramMap);
 	
-	// /on/actorOne에서 필름 검색시
+	// 특정 배우가 출연한 모든 영화를 조회
 	List<Film> selectFilmListByTitle(String searchTitle);
 	
-	int insertFilm(Film film);
+	// 새로운 영화를 추가
+	Integer insertFilm(Film film);
 	
-	// film X language
-	Map<String, Object> selectFilmOne(int filmId);
+	// 특정 영화의 상세 정보를 조회
+	Map<String, Object> selectFilmOne(Integer filmId);
 	
-	// /on/actorOne
-	List<Film> selectFilmTitleListByActor(int actorId);
+	// 특정 배우가 출연한 영화 목록을 조회
+	List<Film> selectFilmTitleListByActor(Integer actorId);
 }
