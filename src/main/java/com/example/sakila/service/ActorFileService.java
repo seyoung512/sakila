@@ -43,14 +43,19 @@ public class ActorFileService {
 				actorFile.setActorId(actorForm.getActorId());
 				actorFile.setType(mf.getContentType());
 				actorFile.setSize(mf.getSize());
+				
+				// 파일 이름을 UUID로 설정하여 중복을 피함
 				String filename = UUID.randomUUID().toString().replace("-","");
 				actorFile.setFilename(filename);
+				
+				 // 원본 파일명에서 확장자 분리
 				int dotIdx = mf.getOriginalFilename().lastIndexOf(".");
 				String originname = mf.getOriginalFilename().substring(0, dotIdx);
 				String ext = mf.getOriginalFilename().substring(dotIdx+1);
 				actorFile.setOriginname(originname);
 				actorFile.setExt(ext);
 				
+				// 데이터베이스에 파일 정보 저장
 				int row2 = actorFileMapper.insertActorFile(actorFile);
 				if(row2 == 1) {
 					// 물리적 파일 저장
@@ -68,6 +73,7 @@ public class ActorFileService {
 	}
 	
 	// /on/actorOne
+	// 특정 배우의 파일 목록을 조회하는 메소드
 	public List<ActorFile> getselectFilmTitleListByActor(int actorId) {
 		return actorFileMapper.selectActorFileListByActor(actorId);
 	}
