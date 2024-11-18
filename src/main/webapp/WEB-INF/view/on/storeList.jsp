@@ -57,20 +57,30 @@
 	   		   </div>
 	   			
 	    <div class="col-sm-10">
-	         <!-- 제목 추가 -->
-	         <h1>STORE LIST</h1>
-			 <table class="table">
-			 	 <tr>
-					 <td>storeId</td>
-					 <td>인벤토리 관리</td>
-				 </tr>
-				 <c:forEach var="s" items="${storeList}">
-					 <tr>
-						 <td>${s.storeId}</td>
-						 <td><a href="${pageContext.request.contextPath}/on/inventoryList?storeId=${s.storeId}">인벤토리 관리</a></td>
-					 </tr>
-				 </c:forEach>
-			 </table>
+	         <!-- main content -->
+			<h1>STORE LIST</h1>
+			<table class="table">
+				<tr>
+					<td>storeId</td>
+					<td>인벤토리 리스트</td>
+					<td>인벤토리 추가</td>
+				</tr>
+				<c:forEach var="s" items="${storeList}">
+					<tr>
+						<td>${s.storeId}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/on/inventoryList?storeId=${s.storeId}">
+								인벤토리 리스트
+							</a>
+						</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/on/addInventory?storeId=${s.storeId}">
+								인벤토리 추가
+							</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
 	  </div>
     </div>
   </div>
