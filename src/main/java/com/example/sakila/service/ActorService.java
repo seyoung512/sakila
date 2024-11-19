@@ -45,7 +45,7 @@ public class ActorService {
 		actorFileMapper.deleteActorFileByActor(actorId);
 		
 		// 3) actor 삭제 : 배우 정보 삭제
-		int row = actorMapper.deleteActor(actorId);
+		Integer row = actorMapper.deleteActor(actorId);
 		
 		// 4) 물리적 파일 삭제: 배우 삭제가 완료되었고 파일이 존재하는 경우 파일을 삭제
 		if(row == 1 && list != null && list.size() > 0) { // actor 삭제했고 물리적파일 존재한다면
@@ -59,7 +59,7 @@ public class ActorService {
 	
 	// /on/modifyActor
 	// 배우 정보 수정 기능
-	public int modifyActor(Actor actor) {
+	public Integer modifyActor(Actor actor) {
 		return actorMapper.updateActor(actor);
 	}
 	
@@ -70,9 +70,9 @@ public class ActorService {
 	}
 	
 	// 전체 배우 목록의 마지막 페이지 번호 계산
-	public int getLastPage(int rowPerPage, String searchWord) {
-		int count = actorMapper.totalCount(searchWord);
-		int lastPage = count / rowPerPage;
+	public Integer getLastPage(Integer rowPerPage, String searchWord) {
+		Integer count = actorMapper.totalCount(searchWord);
+		Integer lastPage = count / rowPerPage;
 		if (count % rowPerPage != 0) lastPage++;
 		return lastPage;
 	}
@@ -84,14 +84,32 @@ public class ActorService {
 	}
 	
 	// 특정 페이지에 해당하는 배우 목록 조회
-	public List<Actor> getActorList(int currentPage, int rowPerPage, String searchWord) {
+	public Map<String, Object> getActorList(Integer currentPage, Integer rowPerPage, String searchWord) {
+		Integer beginRow = (currentPage -1) * rowPerPage;
+		
+		// 파라미터 맵을 만들어 beginRow와 rowPerPage 값을 담음
 		Map<String,Object> paramMap = new HashMap<>();
-		int beginRow = (currentPage -1) * rowPerPage;
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("searchWord", searchWord);
 		
-		return actorMapper.selectActorList(paramMap);
+		// 한페이지당 페이징개수는 10개씩이라고 가정
+		Integer numPerPage = 10;
+		// 페이징 첫번째 페이지 넘버
+		Integer startPagingNum = (currentPage-1)/10*10+1; 
+		// 페이징 마지막 페이지 넘버
+		Integer endPagingNum = startPagingNum + (numPerPage - 1); 
+		
+		// DB에서 고객 리스트 정보를 가져옴
+		List<Actor> actorList = actorMapper.selectActorList(paramMap);
+		
+		// 페이징 정보와 배우 리스트를 resultMap에 담아서 리턴
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("startPagingNum", startPagingNum);
+		resultMap.put("endPagingNum", endPagingNum);
+		resultMap.put("actorList", actorList);
+		
+		return resultMap;
 	}
 	
 	// 새로운 배우 추가 및 배우 파일 추가 기능
@@ -101,9 +119,9 @@ public class ActorService {
 		actor.setLastName(actorForm.getLastName());
 		
 		// actorId = 0
-		int row1 = actorMapper.insertActor(actor);
+		Integer row1 = actorMapper.insertActor(actor);
 		// mybatis selectKey의 값
-		int actorId = actor.getActorId();
+		Integer actorId = actor.getActorId();
 		
 		if(row1 == 1 && actorForm.getActorFile() != null) {
 			// 파일 입력, ActorFile 입력
@@ -120,14 +138,14 @@ public class ActorService {
 				actorFile.setFilename(filename);
 				
 				// 원본 파일명에서 확장자 추출
-				int dotIdx = mf.getOriginalFilename().lastIndexOf(".");
+				Integer dotIdx = mf.getOriginalFilename().lastIndexOf(".");
 				String originname = mf.getOriginalFilename().substring(0, dotIdx);
 				String ext = mf.getOriginalFilename().substring(dotIdx+1);
 				actorFile.setOriginname(originname);
 				actorFile.setExt(ext);
 				
 				// 파일 정보 데이터베이스에 입력
-				int row2 = actorFileMapper.insertActorFile(actorFile);
+				Integer row2 = actorFileMapper.insertActorFile(actorFile);
 				if(row2 == 1) {
 					// 물리적 파일 저장
 					try {

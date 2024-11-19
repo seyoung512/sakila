@@ -10,16 +10,16 @@ import com.example.sakila.vo.Staff;
 @Mapper
 public interface StaffMapper {
 	
-	int updateStaff(Staff staff);
+	Integer updateStaff(Staff staff);
 	
-	int selectStaffCount();
+	Integer selectStaffCount();
 	
 	List<Staff> selectStaffList(Map<String, Object> map);
 	
-	int insertStaff(Staff staff);
+	Integer insertStaff(Staff staff);
 	
 	// /on/staffOne.jsp
-	Map<String, Object> selectStaffOne(int staffId);
+	Map<String, Object> selectStaffOne(Integer staffId);
 	
 	// /off/login.jsp
 	Staff login(Staff staff);

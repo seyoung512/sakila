@@ -55,7 +55,7 @@
 	
 	
 	<select id="selectStaffOne" 
-			parameterType="int"
+			parameterType="Integer"
 			resultType="map">
 			<!-- 조인문으로 수정 resultType은 java.util.Map-->
 			SELECT 

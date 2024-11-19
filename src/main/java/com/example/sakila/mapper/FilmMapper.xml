@@ -129,7 +129,7 @@
 	<!-- GET : /on/modifyFilm -->
 	<!-- GET : /on/filmOne -->
 	<select id="selectFilmOne"
-			parameterType="int"
+			parameterType="Integer"
 			resultType="Map">
 		SELECT 
 			fi.film_id filmId
@@ -152,7 +152,7 @@
 	
 	<!-- /on/actorOne -->
 	<select id="selectFilmTitleListByActor"
-			parameterType="int"
+			parameterType="Integer"
 			resultType="com.example.sakila.vo.Film">
 		SELECT 
 			f.film_id filmId

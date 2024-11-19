@@ -14,7 +14,7 @@
 	</select>
 	
 	<!-- 배우 삭제 -->
-	<delete id="deleteActor" parameterType="int">
+	<delete id="deleteActor" parameterType="Integer">
 		DELETE FROM actor
 		WHERE actor_id = #{actorId}
 	</delete>
@@ -34,7 +34,7 @@
 	</update>
 	
 	<!-- 전체 배우의 수를 반환 (검색어에 해당하는 것만) -->
-	<select id="totalCount" parameterType="String" resultType="int">
+	<select id="totalCount" parameterType="String" resultType="Integer">
 		SELECT COUNT(*)
 		FROM actor
 		<where>
@@ -46,7 +46,7 @@
 	</select>
 	
 	<!-- 특정 영화에 출연한 모든 배우들의 목록을 반환 -->
-	<select id="selectActorListByFilm" parameterType="int" resultType="com.example.sakila.vo.Actor">
+	<select id="selectActorListByFilm" parameterType="Integer" resultType="com.example.sakila.vo.Actor">
 		SELECT
 			a.actor_id actorId
 			, a.first_name firstName
@@ -57,7 +57,7 @@
 	</select>
 		
 	<!-- 특정 배우의 상세 정보를 반환 -->
-	<select id="selectActorOne" parameterType="int" resultType="com.example.sakila.vo.Actor">
+	<select id="selectActorOne" parameterType="Integer" resultType="com.example.sakila.vo.Actor">
 		SELECT
 			actor_id actorId
 			, first_name firstName
@@ -86,7 +86,7 @@
 	
 	<!-- 배우 추가 -->
 	<insert id="insertActor" parameterType="com.example.sakila.vo.Actor">
-		<selectKey resultType="int" keyProperty="actorId" order="AFTER">
+		<selectKey resultType="Integer" keyProperty="actorId" order="AFTER">
 			     select LAST_INSERT_ID()
 		</selectKey> <!-- 인서트 실행 후 셀렉트 키 실행 -->
 		INSERT INTO actor(

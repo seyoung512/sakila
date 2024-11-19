@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.sakila.mapper.FilmActorMapper;
 import com.example.sakila.mapper.FilmCategoryMapper;
 import com.example.sakila.mapper.FilmMapper;
+import com.example.sakila.vo.Customer;
 import com.example.sakila.vo.Film;
 import com.example.sakila.vo.FilmForm;
 
@@ -70,16 +71,32 @@ public class FilmService {
 		filmMapper.deleteFilmByKey(filmId);
 	}
 	
-	public List<Map<String, Object>> getFilmList(Integer categoryId, int currentPage, int rowPerPage) {
+	public List<Map<String, Object>> getFilmList(Integer categoryId, Integer currentPage, Integer rowPerPage) {
 		Map<String, Object> paramMap = new HashMap<>();
 		if(categoryId == null || categoryId == 0) {
 			paramMap.put("categoryId", null);
 		} else {
 			paramMap.put("categoryId", categoryId);
 		}
-		int beginRow = (1-currentPage) * rowPerPage;
+		Integer beginRow = (currentPage - 1) * rowPerPage;
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		
+		// 한페이지당 페이징개수는 10개씩이라고 가정
+		Integer numPerPage = 10;
+		// 페이징 첫번째 페이지 넘버
+		Integer startPagingNum = (currentPage-1)/10*10+1; 
+		// 페이징 마지막 페이지 넘버
+		Integer endPagingNum = startPagingNum + (numPerPage - 1); 
+		
+		// DB에서 고객 리스트 정보를 가져옴
+		List<Map<String, Object>> customerList = filmMapper.selectFilmList(paramMap);
+		
+		// 페이징 정보와 고객 리스트를 resultMap에 담아서 리턴
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("startPagingNum", startPagingNum);
+		resultMap.put("endPagingNum", endPagingNum);
+		resultMap.put("customerList", customerList);
 		
 		if(paramMap.get("categoryId") == null) {
 			return filmMapper.selectFilmList(paramMap);
@@ -130,12 +147,12 @@ public class FilmService {
 		return filmMapper.insertFilm(film);
 	}
 	
-	public Map<String, Object> getFilmOne(int filmId) {
+	public Map<String, Object> getFilmOne(Integer filmId) {
 		return filmMapper.selectFilmOne(filmId);
 	}
 	
 	// /on/actorOne
-	public List<Film> getFilmTitleListByActor(int actorId) {
+	public List<Film> getFilmTitleListByActor(Integer actorId) {
 		return filmMapper.selectFilmTitleListByActor(actorId);
 	}
 }

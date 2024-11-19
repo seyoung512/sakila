@@ -58,57 +58,75 @@
 	   			
 	    <div class="col-sm-10">
 	         <!-- main content -->
-			<h1>${storeId}지점 INVENTORY LIST</h1>
+			<h1>ADD RENTAL</h1>
+			<form id="formSearchName" action="${pageContext.request.contextPath}/on/addRental" method="get">
+				<input type="hidden" name="inventoryId" value="${inventoryId}">
+				이름 검색 :
+				<input type="text" name="searchName" id="searchName">
+				<button type="button" id="btnSearchName">이름검색</button>
+			</form>
 			
-			<div>
-				<a href="${pageContext.request.contextPath}/on/addInventory?storeId=${storeId}">
-					인벤토리 추가
-				</a>
-			</div>
-			
-			<table class="table">
-				<tr>
-					<td>inventoryId</td>
-					<td>(filmId)title</td>
-					<td>lastUpdate</td>
-					<td>대여</td><!-- 대여가능/렌탈날짜(고객id) -->
-					<td>customerId</td>
-					
-					<td>삭제</td>
-				</tr>
-				<c:forEach var="iv" items="${inventoryList}">
+			<form id="formAddRental" method="post" action="${pageContext.request.contextPath}/on/addRental">
+				<table class="table">
 					<tr>
-						<td>${iv.inventoryId}</td>
+						<td>customerId</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/on/filmOne?filmId=${iv.filmId}">
-								(${iv.filmId}) ${iv.title}
-							</a>
-						</td>
-						<td>${iv.lastUpdate}</td>
-						<td>${iv.rentelDate}</td>
-						<td><!-- 대여중인 상태면 고객ID, 대여가능이면 addRental링크 -->
-							<c:if test="${iv.customerId != null}">
-								<a href="${pageContext.request.contextPath}/on/customerOne?customerId=${iv.customerId}">
-									${iv.customerId}
-								</a>
-							</c:if>
-							<c:if test="${iv.customerId == null}">
-								<a href="${pageContext.request.contextPath}/on/addRental?inventoryId=${iv.inventoryId}" 
-									class="btn btn-primary">
-									대여
-								</a>
-							</c:if>
-						</td>						
-						<td>
-							<a href="${pageContext.request.contextPath}/on/removeInventoryByKey?inventoryId=${iv.inventoryId}&storeId=${storeId}">
-								삭제
-							</a>
+							<select name="customerId" id="customerId" size="5">		
+								<c:forEach var="c" items="${customerList}">
+									<option value="${c.customerId}">
+										${c.firstName}
+										${c.lastName}
+										${c.email}
+									</option>
+								</c:forEach>
+							</select> 
 						</td>
 					</tr>
-				</c:forEach>
-			</table>
+					<tr>
+						<td>inventoryId</td>
+						<td>
+							<input type="text" name="inventoryId" id="inventoryId"
+								value="${inventoryId}" readonly> 
+								<!-- request.getAttribue("inventoryId") -->
+						</td>
+					</tr>
+					<tr>
+						<td>staffId</td>
+						<td>
+							<input type="text" name="staffId" id="staffId"
+								value="${loginStaff.staffId}" readonly> 
+						</td>
+					</tr>
+					<tr>
+						<td>rentalDate</td>
+						<td>
+							<input type="date" name="rentalDate" id="rentalDate">
+						</td>
+					</tr>
+				</table>
+				<button type="button" id="btnAddRental">대여</button>
+			</form>
 	  </div>
     </div>
   </div>
 </body>
+<script>
+	$('#btnAddRental').click(function(){
+		if($('#customerId').val() == null || $('#customerId').val() == '') {
+			alert('고객이름 검색 후 아이디를 선택하세요');
+		} else if($('#rentalDate').val() == '') {
+			alert('렌탈 날짜를 입력하세요');
+		} else {
+			$('#formAddRental').submit();
+		}
+	})
+	
+	$('#btnSearchName').click(function(){
+		if($('#searchName').val() == '') {
+			alert('검색이름을 입력하세요');
+		} else {
+			$('#formSearchName').submit();
+		}
+	});
+</script>
 </html>

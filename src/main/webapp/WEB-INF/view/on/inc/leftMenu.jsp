@@ -26,10 +26,7 @@
 	  		 	StoreMapper.insertStore() : Integer
 	  		 	StoreService.addStore() : Integer
 	  		 	POST - /on/addStore - StroeController.addStore(Store)
-	  		 	
 	  		 -->
-	  <li class="list-group-item bg-light">
-			<a href="${pageContext.request.contextPath}/on/addInventory" class="btn">인벤토리 추가</a></li>
 	
 	  <!-- ------------------------------------------------------------------------ -->		
 	  
@@ -61,9 +58,9 @@
 	  <li class="list-group-item">
 	  		::: 고객 관리 :::</li>		
 	  <li class="list-group-item">
-	  		<a href="" class="btn">고객 리스트</a></li>		
+	  		<a href="${pageContext.request.contextPath}/on/customerList" class="btn">고객 리스트</a></li>		
 	  <li class="list-group-item">
-	  		<a href="">고객 추가</a></li>		
+	  		<a href="${pageContext.request.contextPath}/on/addCustomer" class="btn">고객 추가</a></li>		
 	  
 	  <li class="list-group-item">
 	  		::: 배우 관리 :::</li>		

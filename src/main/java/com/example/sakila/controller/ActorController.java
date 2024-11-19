@@ -1,6 +1,7 @@
 package com.example.sakila.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,7 @@ public class ActorController {
 	
 	// 배우 삭제 요청 처리(배우 ID로 삭제)
 	@GetMapping("/on/removeActor")
-	public String removeActor(HttpSession session, @RequestParam int actorId) {
+	public String removeActor(HttpSession session, @RequestParam Integer actorId) {
 		String path = session.getServletContext().getRealPath("/upload/"); // 파일 업로드 경로 가져오기
 		actorService.removeActor(actorId, path); // 배우 삭제 서비스 호출
 		return "redirect:/on/actorList"; // 삭제 후 배우 리스트로 리다이렉트
@@ -41,7 +42,7 @@ public class ActorController {
 	public String modifyActor(Actor actor) {
 		log.debug(actor.toString()); // 수정할 배우의 정보를 디버깅
 		
-		int row = actorService.modifyActor(actor); // 배우 정보를 DB에서 수정
+		Integer row = actorService.modifyActor(actor); // 배우 정보를 DB에서 수정
 		
 		
 		return "redirect:/on/actorOne?actorId="+actor.getActorId(); // 수정된 배우의 상세 페이지로 리다이렉트
@@ -49,7 +50,7 @@ public class ActorController {
 	
 	// 배우 수정 페이지를 보여주는 GET 요청 처리
 	@GetMapping("/on/modifyActor")
-	public String modifyActor(Model model, @RequestParam int actorId) {
+	public String modifyActor(Model model, @RequestParam Integer actorId) {
 		Actor actor = actorService.getActorOne(actorId); // 배우 ID로 해당 
 		log.debug("actor-->>" + actorId); // 디버깅용으로 배우 ID 출력
 		
@@ -61,7 +62,7 @@ public class ActorController {
 	@GetMapping("/on/actorOne") 
 	public String actorOne(Model model
 							, @RequestParam(defaultValue = "") String searchTitle
-							, @RequestParam int actorId) {
+							, @RequestParam Integer actorId) {
 		// 배우의 상세 정보를 가져옴
 		Actor actor = actorService.getActorOne(actorId);
 		// 해당 배우가 출연한 영화 리스트를 가져옴
@@ -91,21 +92,25 @@ public class ActorController {
 	// 배우 리스트 페이지를 보여주는 GET 요청 처리 (페이징 처리)
 	@GetMapping("/on/actorList")
 	public String actorList(Model model
-							, @RequestParam(defaultValue = "1") int currentPage
-							, @RequestParam(defaultValue = "10") int rowPerPage
+							, @RequestParam(defaultValue = "1") Integer currentPage
+							, @RequestParam(defaultValue = "10") Integer rowPerPage
 							, @RequestParam(required = false) String searchWord) {
 			log.debug("searchWord : "+searchWord); // 검색어 디버깅
 			
 			// 현재 페이지와 검색어에 맞는 배우 목록을 가져옴
-			List<Actor> actorList = actorService.getActorList(currentPage, rowPerPage, searchWord);
+			Map<String, Object> resultMap = actorService.getActorList(currentPage, rowPerPage, searchWord);
+			
+			// 디버깅
+			log.debug(resultMap.toString());
 			
 			// 전체 배우 수에 맞춰 마지막 페이지 번호를 계산
-			int lastPage = actorService.getLastPage(rowPerPage, searchWord);
+			Integer lastPage = actorService.getLastPage(rowPerPage, searchWord);
 			
 			// 페이지네이션 및 검색어 정보를 모델에 추가
 			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("lastPage", lastPage);
-			model.addAttribute("actorList", actorList);
+			model.addAttribute("startPagingNum", resultMap.get("startPagingNum"));
+			model.addAttribute("endPagingNum", resultMap.get("endPagingNum"));
+			model.addAttribute("actorList", resultMap.get("actorList"));
 			model.addAttribute("searchWord", searchWord);
 			
 			// 배우 목록 페이지로 이동

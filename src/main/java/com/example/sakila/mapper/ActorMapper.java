@@ -29,7 +29,7 @@ public interface ActorMapper {
 	Actor selectActorOne(Integer actorId);
 	
 	// Map<String, Object> 형태의 파라미터를 받아 다양한 조건을 기반으로 배우 목록을 조회
-	List<Actor> selectActorList(Map<String, Object> map);
+	List<Actor> selectActorList(Map<String, Object> paramMap);
 	
 	// Actor 객체를 받아 새로운 배우 정보를 삽입
 	Integer insertActor(Actor actor);

@@ -79,27 +79,31 @@ public class FilmController {
 	// 영화 목록 페이지 요청 처리
 	@GetMapping("/on/filmList")
 	public String filmList(Model model, @RequestParam(required = false) Integer categoryId,
-			@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "10") int rowPerPage) {
+			@RequestParam(defaultValue = "1") Integer currentPage, @RequestParam(defaultValue = "10") Integer rowPerPage) {
 		log.debug("categoryId: " + categoryId);
 		log.debug("currentPage: " + currentPage);
 		log.debug("rowPerPage: " + rowPerPage);
 		
-		// 영화 목록 가져오기
-		List<Map<String, Object>> filmList = filmService.getFilmList(categoryId, currentPage, rowPerPage);
-		log.debug("filmList: " + filmList);
-		model.addAttribute("filmList", filmList);
+		 // 서비스 메서드 호출
+        List<Map<String, Object>> filmList = filmService.getFilmList(categoryId, currentPage, rowPerPage);
 
-		// 카테고리 목록 가져오기
-		List<Category> categoryList = categoryService.getCategoryList();
-		log.debug("categoryList: " + categoryList);
-		model.addAttribute("categoryList", categoryList);
-
-		// 현재 페이지, 카데고리 ID를 모델에 추가
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("currentCategoryId", categoryId);
-
-		// 영화 목록 페이지로 이동
-		return "on/filmList";
+        // 페이징 정보 계산
+        Integer startPagingNum = (currentPage - 1) / 10 * 10 + 1;
+        Integer endPagingNum = startPagingNum + 9;
+        
+        // Model에 catetory List 추가
+ 		List<Category> categoryList = categoryService.getCategoryList();
+ 		log.debug("categoryList: "+categoryList);
+        
+ 		// 모델에 데이터 담기
+ 		model.addAttribute("categoryList", categoryList);
+        model.addAttribute("filmList", filmList);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("startPagingNum", startPagingNum);
+        model.addAttribute("endPagingNum", endPagingNum);
+        model.addAttribute("categoryId", categoryId);
+        
+        return "on/filmList";  // 해당 뷰로 리턴
 	}
 
 	// 영화 추가 처리 (POST)

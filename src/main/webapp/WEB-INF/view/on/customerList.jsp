@@ -57,59 +57,45 @@
 	   		   </div>
 	   			
 	    <div class="col-sm-10">
-			<!-- main content -->	    
-	        <h2 class="text-center mb-4">영화 목록</h2>
-	        <!-- 카테고리 선택 -->
-	        <form action="${pageContext.request.contextPath}/on/filmList"
-	        		method="get" id="formCategory">
-	        	<select name="categoryId" id="categoryId">
-	        		<option value="0">전체</option>
-	        		<c:forEach var = "c" items = "${categoryList}">
-	        			<c:if test="${c.categoryId == currentCategoryId}">
-	        				<option selected value="${c.categoryId}">${c.name}</option>
-	        			</c:if>
-						<c:if test="${c.categoryId != currentCategoryId}">
-	        				<option value="${c.categoryId}">${c.name}</option>		
-						</c:if>
-	        		</c:forEach>
-	        	</select>
-	        </form>		
-	        
-	        <br>
-	        
-	        <table class="table">
-	        	<tr>
-	        		<td>filmId</td>
-	        		<td>title</td>
-	        		<td>releaseYear</td>
-	        		<td>rentalDuration</td>
-	        		<td>rentalRate</td>
-	        		<td>length</td>
-	        		<td>replacementCost</td>
-	        		<td>rating</td>
-	        	</tr>
-	        	<c:forEach var="f" items="${filmList}"> <!-- filmList -->
-	        		<tr>
-	        			<td>${f.filmId}</td>
-	        			<td>
-	        				<a href="${pageContext.request.contextPath}/on/filmOne?filmId=${f.filmId}">
-	        					${f.title}
-	        				</a>
-	        			</td>
-	        			<td>${f.releaseYear}</td>
-	        			<td>${f.rentalDuration}</td>
-	        			<td>${f.rentalRate}</td>
-	        			<td>${f.length}</td>
-	        			<td>${f.replacementCost}</td>
-	        			<td>${f.rating}</td>
-	        		</tr>
-	        	</c:forEach>
-	        </table>
-	        
-	        <!-- 페이징 -->
-	        <div>
-	        	<c:if test="${currentPage > 10}">
-					<a href="${pageContext.request.contextPath}/on/filmrList?currentPage=${currentPage-10}&categoryId=${categoryId}">
+	        <!-- main content -->
+			<h1>고객 리스트</h1>
+			<table class="table">
+				<tr>
+					<td>customerId</td>
+					<td>storeId</td>
+					<td>firstName</td>
+					<td>lastName</td>
+					<td>email</td>
+					<td>addressId</td>
+					<td>active</td>
+					<td>createDate</td>
+					<td>updateDate</td>
+				</tr>
+				<c:forEach var="c" items="${customerList}">
+					<tr>
+						<td>
+							<!-- 고객 상세 정보(주소 X 렌탈 X 지불...조인 발생...) -->
+							<a href="">
+								${c.customerId}
+							</a>
+						</td>
+						<td>${c.storeId}</td>
+						<td>${c.firstName}</td>
+						<td>${c.lastName}</td>
+						<td>${c.email}</td>
+						<td>${c.addressId}</td>
+						<td>${c.active}</td>
+						<td>${c.createDate}</td>
+						<td>${c.lastUpdate}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			
+			<div>
+				<!-- 페이징 -->
+				<!-- 이전 11 12 13 14 15 16 17 18 19 20 다음 -->
+				<c:if test="${currentPage > 10}">
+					<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${currentPage-10}">
 						[이전] <!-- if분기 필요 -->
 					</a>
 				</c:if>
@@ -119,26 +105,27 @@
 						${num}&nbsp;
 					</c:if>
 					<c:if test = "${num != currentPage}">
-						<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${num}&categoryId=${categoryId}">
+						<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${num}">
 							${num}
 						</a>
 						&nbsp;
 					</c:if>
 				</c:forEach>
 				<c:if test="${currentPage < endPagingNum}">
-					<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${currentPage+10}&categoryId=${categoryId}">
+					<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${currentPage+10}">
 						[다음] <!-- if분기 필요 -->
 					</a>
 				</c:if>
-	        </div>
+			</div>
+			
+			<div>
+				<form>
+					<input type="text">
+					<button type="button">이름검색</buttton>
+				</form>
+			</div>
 	  </div>
     </div>
-   </div>
+  </div>
 </body>
-<script>
-	$('#categoryId').change(function() {
-		// alert('change!');
-		$('#formCategory').submit();
-	});
-</script>
 </html>

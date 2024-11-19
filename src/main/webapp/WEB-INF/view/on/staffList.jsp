@@ -113,35 +113,31 @@
 	       		</c:forEach>
 	       	</table>
 		   
-		    <!-- 페이지네이션 -->
-			<div class="container text-center">
-			  <div class="row">
-			    <div class="col"></div>
-			    <div class="col">
-			      <nav aria-label="Page navigation example">
-					  <!-- 처음으로 -->
-					  <ul class="pagination">
-					    <li class="page-item">
-					    	<a class="page-link" href="${pageContext.request.contextPath}/on/staffList?currentPage=1" aria-label="Previous">
-					   			 <span aria-hidden="true">&laquo;</span>
-					   		</a>
-					    </li>
-					    <c:forEach var="i" begin="1" end="${lastPage}">
-				           <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/on/staffList?currentPage=${i}">${i}</a></li>
-				        </c:forEach>
-					    <!-- 마지막으로 -->
-					    <li class="page-item">
-					    	<a class="page-link" href="${pageContext.request.contextPath}/on/staffList?currentPage=${lastPage}" aria-label="Next">
-					    		 <span aria-hidden="true">&raquo;</span>
-					    	</a>
-					    </li>
-					  </ul>
-					</nav>
-			    </div>
-			    <div class="col"></div>
-			  </div>
+			<!-- 페이징 -->
+		    <div>
+				<c:if test="${currentPage > 5}">
+					<a href="${pageContext.request.contextPath}/on/staffList?currentPage=${currentPage > 5}">
+						[이전] <!-- if분기 필요 -->
+					</a>
+				</c:if>
+				
+				<c:forEach var="num" begin="${startPagingNum}" end="${endPagingNum}">
+					<c:if test = "${num == currentPage}">
+						${num}&nbsp;
+					</c:if>
+					<c:if test = "${num != currentPage}">
+						<a href="${pageContext.request.contextPath}/on/staffList?currentPage=${num}">
+							${num}
+						</a>
+						&nbsp;
+					</c:if>
+				</c:forEach>
+				<c:if test="${currentPage < endPagingNum}">
+					<a href="${pageContext.request.contextPath}/on/staffList?currentPage=${currentPage+5}">
+						[다음] <!-- if분기 필요 -->
+					</a>
+				</c:if>
 			</div>
-		    </div>
 		    
 		</div>
 	</div>
