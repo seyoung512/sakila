@@ -109,7 +109,7 @@
 	        <!-- 페이징 -->
 	        <div>
 	        	<c:if test="${currentPage > 10}">
-					<a href="${pageContext.request.contextPath}/on/filmrList?currentPage=${currentPage-10}&categoryId=${categoryId}">
+					<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${currentPage-10}&categoryId=${categoryId}">
 						[이전] <!-- if분기 필요 -->
 					</a>
 				</c:if>

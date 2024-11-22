@@ -18,4 +18,7 @@ public interface CustomerMapper {
 	
 	// 새로운 고객을 추가하는 메서드
 	Integer insertCustomer(Customer customer);
+	
+	// on/cutomerList
+	Integer selectTotalCustomer(Integer rowPerPage);
 }

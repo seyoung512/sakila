@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sakila.mapper.CustomerMapper">
+	
+	<!-- on/customerList : 마지막 페이지 -->
+	<select id="selectTotalCustomer">
+		SELECT count(*)
+		FROM customer c INNER JOIN address a
+		ON c.address_id = a.address_id
+	</select>
+	
 	<!-- /on/addRental -->
 	<!-- 고객 이름으로 검색하여 고객 목록을 반환하는 쿼리 -->
 	<select id="selectCustomerListByName"

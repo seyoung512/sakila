@@ -101,6 +101,7 @@
 				</c:if>
 				
 				<c:forEach var="num" begin="${startPagingNum}" end="${endPagingNum}">
+					
 					<c:if test = "${num == currentPage}">
 						${num}&nbsp;
 					</c:if>
@@ -110,8 +111,9 @@
 						</a>
 						&nbsp;
 					</c:if>
+					
 				</c:forEach>
-				<c:if test="${currentPage < endPagingNum}">
+				<c:if test="${currentPage < lastPage}">
 					<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${currentPage+10}">
 						[다음] <!-- if분기 필요 -->
 					</a>

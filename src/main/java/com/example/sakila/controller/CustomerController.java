@@ -45,11 +45,16 @@ public class CustomerController {
 		// 디버깅
 		log.debug(resultMap.toString());
 		
+		Integer lastPage = customerService.getLastPage(rowPerPage);
+		
 		// Model에 고객 목록과 페이징 정보를 추가하여 뷰로 전달
 		// resultMap 풀어서.... 이동(통으로 넘기면 View코드 복잡...)
+		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("rowPerPage", currentPage);
 		model.addAttribute("startPagingNum", resultMap.get("startPagingNum"));
 		model.addAttribute("endPagingNum", resultMap.get("endPagingNum"));
+		
 		model.addAttribute("customerList", resultMap.get("customerList"));
 		
 		// 고객 목록 페이지로 이동

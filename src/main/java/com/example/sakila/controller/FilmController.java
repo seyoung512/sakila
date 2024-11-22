@@ -90,6 +90,7 @@ public class FilmController {
         // 페이징 정보 계산
         Integer startPagingNum = (currentPage - 1) / 10 * 10 + 1;
         Integer endPagingNum = startPagingNum + 9;
+        Integer lastPage = filmService.getLastPage(rowPerPage);
         
         // Model에 catetory List 추가
  		List<Category> categoryList = categoryService.getCategoryList();

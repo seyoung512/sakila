@@ -33,4 +33,7 @@ public interface FilmMapper {
 	
 	// 특정 배우가 출연한 영화 목록을 조회
 	List<Film> selectFilmTitleListByActor(Integer actorId);
+	
+	// on/filmList
+	Integer selectTotalFilm(Integer rowPerPage);
 }

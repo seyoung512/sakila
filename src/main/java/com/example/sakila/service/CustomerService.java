@@ -26,7 +26,15 @@ public class CustomerService {
 	
 	// 마지막 페이지 번호를 구하는 메서드
 	public Integer getLastPage(Integer rowPerPage) {
-		return 0;
+		Integer totalCount = customerMapper.selectTotalCustomer(rowPerPage);
+		
+		Integer lastPage = totalCount / rowPerPage;
+		
+		if(totalCount % rowPerPage != 0) {
+			lastPage++;
+		}
+		
+		return lastPage;
 	}
 	
 	// 고객 리스트를 페이징 처리하여 조회하는 메서드
@@ -45,21 +53,18 @@ public class CustomerService {
 		Integer startPagingNum = (currentPage-1)/10*10+1; 
 		// 페이징 마지막 페이지 넘버
 		Integer endPagingNum = startPagingNum + (numPerPage - 1); 
-		
-		
-		// 현재페이지가 95다 91~100출력인데 마지막 페이지가 98이면 91 ~ 98
-		/*
+		// 마지막 페이지가 98이라면 98까지 출력해야함
 		Integer lastPage = this.getLastPage(rowPerPage);
 		if(lastPage < endPagingNum) {
 			endPagingNum = lastPage;
 		}
-		*/
-		
+				
 		// DB에서 고객 리스트 정보를 가져옴
 		List<Customer> customerList = customerMapper.selectCustomerList(paramMap);
 		
 		// 페이징 정보와 고객 리스트를 resultMap에 담아서 리턴
 		Map<String, Object> resultMap = new HashMap<>();
+		
 		resultMap.put("startPagingNum", startPagingNum);
 		resultMap.put("endPagingNum", endPagingNum);
 		resultMap.put("customerList", customerList);

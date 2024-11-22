@@ -25,6 +25,19 @@ public class FilmService {
 	@Autowired FilmActorMapper filmActorMapper;
 	@Autowired FilmCategoryMapper filmCategoryMapper;
 	
+	// 마지막 페이지 번호를 구하는 메서드
+	public Integer getLastPage(Integer rowPerPage) {
+		Integer totalCount = filmMapper.selectTotalFilm(rowPerPage);
+		
+		Integer lastPage = totalCount / rowPerPage;
+		
+		if(totalCount % rowPerPage != 0) {
+			lastPage++;
+		}
+		
+		return lastPage;
+	}
+	
 	public Integer modifyFilm(FilmForm filmForm) {
 		Film film = new Film();
 		// FilmForm --> Film
